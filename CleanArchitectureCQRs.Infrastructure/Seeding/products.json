@@ -5,12 +5,12 @@
     "Description": "Latest model smartphone with high performance.",
     "Price": 699,
     "image": "smartphone.jpg",
+  },
   {
     "ProductId": "e9d2e4be-86d8-4d77-bc7b-3a907ec12a65",
     "Name": "Laptop",
     "Description": "Powerful laptop for professionals and gamers.",
     "Price": 1299,
     "image": "laptop.jpg"
-    
   }
 ]

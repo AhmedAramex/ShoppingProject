@@ -1,5 +1,5 @@
 using CleanArchitectureCQRs.Infrastructure.Context;
-using CleanArchitectureCQRs.Infrastructure.Seeding;
+using CleanArchitectureCQRs.Infrastructure.Identity;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -14,18 +14,14 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("TestDBConnection")));
 
+
+builder.Services.AddDbContext<IdentityContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("IdentityDBConnection")));
+
 var app = builder.Build();
 
-using var serviceScope = app.Services.GetRequiredService<IServiceScopeFactory>().CreateScope();
-try
-{
-    ApplicationDbContext context = serviceScope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-    DataSeeding.dataseeding(context);
-}
-catch
-{
+//using var serviceScope = app.Services.GetRequiredService<IServiceScopeFactory>().CreateScope();
 
-}
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
