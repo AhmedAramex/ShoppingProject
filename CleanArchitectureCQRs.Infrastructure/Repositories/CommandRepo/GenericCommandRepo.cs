@@ -15,7 +15,7 @@ public class GenericCommandRepo<T> : ICommandGenericRepo<T> where T : class
     private readonly ApplicationDbContext _dbContext;
     private readonly GeneraicQueryRepo<T> _generaicQueryRepo;
 
-    public GenericCommandRepo(ApplicationDbContext dbContext, GeneraicQueryRepo<T> generaicQueryRepo)
+    public GenericCommandRepo(ApplicationDbContext dbContext, IQueryGenericRepo<T> generaicQueryRepo)
     {
         dbContext = _dbContext;
         generaicQueryRepo = _generaicQueryRepo;
