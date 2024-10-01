@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CleanArchitectureCQRs.Infrastructure.Repositories.QueryRepo;
+namespace CleanArchitectureCQRs.Infrastructure.Repositories.CommandRepo;
 
 public class GenericCommandRepo<T> : ICommandGenericRepo<T> where T : class
 {
@@ -18,7 +18,10 @@ public class GenericCommandRepo<T> : ICommandGenericRepo<T> where T : class
         dbContext = _dbContext;
     }
     public async Task<T> Add(T item)
-    => await _dbContext.Set<T>().AddAsync(item);
+    {
+        await _dbContext.Set<T>().AddAsync(item);
+        return item;
+    }
 
     public Task<T> Remove(int id)
     {
