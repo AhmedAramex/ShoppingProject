@@ -8,7 +8,7 @@ namespace CleanArchitectureCQRs.Application.IReposatories
 {
     public interface ICommandGenericRepo<T> where T : class
     {
-        Task<T> Update(int id);
+        void Update(int id);
         void Remove(int id);
         Task<T> Add(T item);
     }

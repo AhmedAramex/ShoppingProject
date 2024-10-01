@@ -34,8 +34,10 @@ public class GenericCommandRepo<T> : ICommandGenericRepo<T> where T : class
 
     }
 
-    public Task<T> Update(int id)
+    public void Update(int id)
     {
-        throw new NotImplementedException();
+        var entity = _generaicQueryRepo.GetByIdAsync(id);
+        _dbContext.Update(entity);
+        _dbContext.SaveChangesAsync();
     }
 }
