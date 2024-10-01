@@ -31,16 +31,4 @@ public class GeneraicQueryRepo<T> : IQueryGenericRepo<T> where T : class
 
         return entity;
     }
-
-    //public async Task<T> GetByIdWithIncludesAsync(int id)
-    //{
-    //    var entitybyId = await _dbContext.Set<T>().FindAsync(id);
-    //    var entity = entitybyId.Include(id);
-    //    if (entity == null)
-    //    {
-    //        throw new KeyNotFoundException($"Entity with id {id} not found.");
-    //    }
-
-    //    return entity;
-    //}
 }
