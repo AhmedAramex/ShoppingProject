@@ -7,17 +7,10 @@ using System.Threading.Tasks;
 
 namespace CleanArchitectureCQRs.Domain.Entites;
 
-public class WishList
+public class Wishlist
 {
-    public Guid Id { get; set; }
     public Guid UsersId { get; set; }
-    public ICollection<Product> Products { get; set; }
+    public Guid ProductId { get; set; }
+    public virtual Product? Product { get; set; }
 }
 
-//public class Wishlist
-//{
-//    public int Id { get; set; }
-//    public int UserId { get; set; }
-//    public User User { get; set; }
-//    public ICollection<Product> Products { get; set; }
-//}
