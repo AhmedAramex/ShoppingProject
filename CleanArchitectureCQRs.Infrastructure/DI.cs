@@ -1,5 +1,7 @@
-﻿using CleanArchitectureCQRs.Infrastructure.Context;
+﻿using CleanArchitectureCQRs.Application.Interfaces.Repositories;
+using CleanArchitectureCQRs.Infrastructure.Context;
 using CleanArchitectureCQRs.Infrastructure.Identity;
+using CleanArchitectureCQRs.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -12,6 +14,8 @@ public static class DI
     {
         services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(config.GetConnectionString("TestDBConnection")));
         services.AddDbContext<IdentityContext>(options => options.UseSqlServer(config.GetConnectionString("IdentityDBConnection")));
+
+        services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 
         return services;
     }

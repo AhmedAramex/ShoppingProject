@@ -1,8 +1,9 @@
-﻿namespace CleanArchitectureCQRs.Domain.Entites;
+﻿using CleanArchitectureCQRs.Domain.Abstractions;
 
-public class Category
+namespace CleanArchitectureCQRs.Domain.Entites;
+
+public class Category : BaseEntity
 {
-    public Guid Id { get; set; }
     public string Name { get; set; }
     public string? Description { get; set; }
     public virtual ICollection<Product> Products { get; set; }

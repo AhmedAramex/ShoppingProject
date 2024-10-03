@@ -1,6 +1,8 @@
-﻿namespace CleanArchitectureCQRs.Domain.Entites;
+﻿using CleanArchitectureCQRs.Domain.Abstractions;
 
-public class Wishlist
+namespace CleanArchitectureCQRs.Domain.Entites;
+
+public class Wishlist : BaseEntity
 {
     public Guid UsersId { get; set; }
     public Guid ProductId { get; set; }
