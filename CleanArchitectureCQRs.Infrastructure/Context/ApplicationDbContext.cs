@@ -30,11 +30,6 @@ public class ApplicationDbContext : DbContext
             .HasMany(c => c.Products)
             .WithOne(c => c.Category);
 
-        ////users
-        //modelBuilder.Entity<Users>()
-        //    .HasOne(u => u.WishList);
-
-
         //WishList
         modelBuilder.Entity<Wishlist>(entity =>
         {
