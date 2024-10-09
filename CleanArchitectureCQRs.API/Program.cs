@@ -1,7 +1,9 @@
+using CleanArchitectureCQRs.Application;
 using CleanArchitectureCQRs.Application.IReposatories;
 using CleanArchitectureCQRs.Infrastructure.Context;
-using CleanArchitectureCQRs.Infrastructure.Repositories.QueryRepo;
+using CleanArchitectureCQRs.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,8 +18,9 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 builder.Services.AddDbContext<ApplicationIdentityDbContext>(options => options.UseSqlServer(
     builder.Configuration.GetConnectionString("TestIdentityConnection")));
 
-builder.Services.AddScoped(typeof(IQueryGenericRepo<>), typeof(GeneraicQueryRepo<>));
 
+RegisterMediator.Addmediator(builder.Services);
+builder.Services.AddScoped(typeof(IGenericRepo<>), typeof(GenericRepo<>));
 var app = builder.Build();
 
 app.UseSwagger();

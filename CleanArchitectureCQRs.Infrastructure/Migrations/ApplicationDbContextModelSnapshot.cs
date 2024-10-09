@@ -37,7 +37,7 @@ namespace CleanArchitectureCQRs.Infrastructure.Migrations
 
                     b.HasKey("CategoryId");
 
-                    b.ToTable("categories");
+                    b.ToTable("categories", (string)null);
 
                     b.HasData(
                         new
@@ -128,7 +128,7 @@ namespace CleanArchitectureCQRs.Infrastructure.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.ToTable("products");
+                    b.ToTable("products", (string)null);
 
                     b.HasData(
                         new
@@ -413,7 +413,7 @@ namespace CleanArchitectureCQRs.Infrastructure.Migrations
 
                     b.HasKey("ProductId", "UsersId");
 
-                    b.ToTable("wishLists");
+                    b.ToTable("wishLists", (string)null);
                 });
 
             modelBuilder.Entity("CleanArchitectureCQRs.Domain.Entites.Product", b =>

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace CleanArchitectureCQRs.Domain.Entites;
 
-public class Wishlist
+public class Wishlist : BaseEntity
 {
     public Guid UsersId { get; set; }
     public Guid ProductId { get; set; }
