@@ -3,10 +3,10 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace CleanArchitectureCQRs.Infrastructure.Migrations.ApplicationIdentityDb
+namespace CleanArchitectureCQRs.Infrastructure.Migrations.Identity
 {
     /// <inheritdoc />
-    public partial class InitIdentityMIG : Migration
+    public partial class Initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

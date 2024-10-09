@@ -1,11 +1,6 @@
 ﻿using CleanArchitectureCQRs.Domain.Entites;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace CleanArchitectureCQRs.Application.Features.ProductsHandler.Dtos;
+namespace CleanArchitectureCQRs.Application.Features.Products.Dtos;
 
 public class ProductDTO
 {

@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CleanArchitectureCQRs.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240915141246_init-mig")]
-    partial class initmig
+    [Migration("20240925170009_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -27,29 +27,29 @@ namespace CleanArchitectureCQRs.Infrastructure.Migrations
 
             modelBuilder.Entity("CleanArchitectureCQRs.Domain.Entites.Category", b =>
                 {
-                    b.Property<Guid>("CategoryId")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("CategoryName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("CategoryId");
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
-                    b.ToTable("categories");
+                    b.HasKey("Id");
+
+                    b.ToTable("Categories");
                 });
 
             modelBuilder.Entity("CleanArchitectureCQRs.Domain.Entites.Product", b =>
                 {
-                    b.Property<Guid>("ProductId")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("CategoryId")
+                    b.Property<Guid?>("CategoryId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Description")
@@ -62,82 +62,49 @@ namespace CleanArchitectureCQRs.Infrastructure.Migrations
                     b.Property<int>("Price")
                         .HasColumnType("int");
 
-                    b.Property<Guid?>("WishListId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<string>("image")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("ProductId");
+                    b.HasKey("Id");
 
                     b.HasIndex("CategoryId");
 
-                    b.HasIndex("WishListId");
-
-                    b.ToTable("products");
+                    b.ToTable("Products");
                 });
 
-            modelBuilder.Entity("CleanArchitectureCQRs.Domain.Entites.Users", b =>
+            modelBuilder.Entity("CleanArchitectureCQRs.Domain.Entites.Wishlist", b =>
                 {
                     b.Property<Guid>("UsersId")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("UserName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("UsersId");
-
-                    b.ToTable("users");
-                });
-
-            modelBuilder.Entity("CleanArchitectureCQRs.Domain.Entites.WishList", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
+                    b.Property<Guid>("ProductId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("Count")
-                        .HasColumnType("int");
+                    b.HasKey("UsersId", "ProductId");
 
-                    b.Property<Guid>("UsersId")
-                        .HasColumnType("uniqueidentifier");
+                    b.HasIndex("ProductId");
 
-                    b.HasKey("Id");
-
-                    b.HasIndex("UsersId")
-                        .IsUnique();
-
-                    b.ToTable("wishLists");
+                    b.ToTable("Wishlists");
                 });
 
             modelBuilder.Entity("CleanArchitectureCQRs.Domain.Entites.Product", b =>
                 {
                     b.HasOne("CleanArchitectureCQRs.Domain.Entites.Category", "Category")
                         .WithMany("Products")
-                        .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("CleanArchitectureCQRs.Domain.Entites.WishList", "WishList")
-                        .WithMany("Products")
-                        .HasForeignKey("WishListId");
+                        .HasForeignKey("CategoryId");
 
                     b.Navigation("Category");
-
-                    b.Navigation("WishList");
                 });
 
-            modelBuilder.Entity("CleanArchitectureCQRs.Domain.Entites.WishList", b =>
+            modelBuilder.Entity("CleanArchitectureCQRs.Domain.Entites.Wishlist", b =>
                 {
-                    b.HasOne("CleanArchitectureCQRs.Domain.Entites.Users", "User")
-                        .WithOne("WishList")
-                        .HasForeignKey("CleanArchitectureCQRs.Domain.Entites.WishList", "UsersId")
+                    b.HasOne("CleanArchitectureCQRs.Domain.Entites.Product", "Product")
+                        .WithMany("WishLists")
+                        .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("User");
+                    b.Navigation("Product");
                 });
 
             modelBuilder.Entity("CleanArchitectureCQRs.Domain.Entites.Category", b =>
@@ -145,15 +112,9 @@ namespace CleanArchitectureCQRs.Infrastructure.Migrations
                     b.Navigation("Products");
                 });
 
-            modelBuilder.Entity("CleanArchitectureCQRs.Domain.Entites.Users", b =>
+            modelBuilder.Entity("CleanArchitectureCQRs.Domain.Entites.Product", b =>
                 {
-                    b.Navigation("WishList")
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("CleanArchitectureCQRs.Domain.Entites.WishList", b =>
-                {
-                    b.Navigation("Products");
+                    b.Navigation("WishLists");
                 });
 #pragma warning restore 612, 618
         }

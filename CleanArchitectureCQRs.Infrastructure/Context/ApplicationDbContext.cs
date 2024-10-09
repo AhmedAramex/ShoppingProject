@@ -1,11 +1,5 @@
 ﻿using CleanArchitectureCQRs.Domain.Entites;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CleanArchitectureCQRs.Infrastructure.Context;
 public class ApplicationDbContext : DbContext
@@ -18,10 +12,31 @@ public class ApplicationDbContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        base.OnModelCreating(modelBuilder);
-        modelBuilder.Entity<Product>()
-        .ToTable("products");
-        modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+        //product
+        modelBuilder.Entity<Product>(entity =>
+        {
+            entity.HasOne(p => p.Category)
+            .WithMany(c => c.Products);
+
+            entity.HasMany(p => p.Wishlists)
+            .WithOne(w => w.Product);
+        });
+
+        //category 
+        modelBuilder.Entity<Category>()
+            .HasMany(c => c.Products)
+            .WithOne(c => c.Category);
+
+        //WishList
+        modelBuilder.Entity<Wishlist>(entity =>
+        {
+            entity
+            .HasOne(p => p.Product)
+            .WithMany(w => w.Wishlists)
+            .HasForeignKey(p => p.ProductId);
+
+            entity.HasKey(w => new { w.UsersId, w.ProductId });
+        });
 
         /* SEED DATA */
 

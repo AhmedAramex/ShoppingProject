@@ -1,26 +1,18 @@
 using CleanArchitectureCQRs.Application;
-using CleanArchitectureCQRs.Application.IReposatories;
+using CleanArchitectureCQRs.Infrastructure;
 using CleanArchitectureCQRs.Infrastructure.Context;
-using CleanArchitectureCQRs.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
-using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
-
+// Add services to the container.
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("TestDBConnection")));
+builder.Services.AddInfrastructure(builder.Configuration);
+builder.Services.AddApplication();
 
-builder.Services.AddDbContext<ApplicationIdentityDbContext>(options => options.UseSqlServer(
-    builder.Configuration.GetConnectionString("TestIdentityConnection")));
-
-
-RegisterMediator.Addmediator(builder.Services);
-builder.Services.AddScoped(typeof(IGenericRepo<>), typeof(GenericRepo<>));
 var app = builder.Build();
 
 app.UseSwagger();
