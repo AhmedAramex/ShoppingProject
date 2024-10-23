@@ -1,7 +1,5 @@
 using CleanArchitectureCQRs.Application;
 using CleanArchitectureCQRs.Infrastructure;
-using CleanArchitectureCQRs.Infrastructure.Context;
-using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,6 +10,7 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddApplication();
+
 
 var app = builder.Build();
 

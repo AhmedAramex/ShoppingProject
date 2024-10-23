@@ -12,4 +12,5 @@ public interface IGenericRepository<T> where T : BaseEntity
     void Remove(T entity);
 
     Task<int> SaveAsync();
+    Task<List<T>> WhereAsync(System.Linq.Expressions.Expression<Func<T, bool>> predicate);
 }

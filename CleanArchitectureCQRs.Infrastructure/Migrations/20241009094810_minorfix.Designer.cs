@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CleanArchitectureCQRs.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240928133229_InitMIG")]
-    partial class InitMIG
+    [Migration("20241009094810_minorfix")]
+    partial class minorfix
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -27,87 +27,87 @@ namespace CleanArchitectureCQRs.Infrastructure.Migrations
 
             modelBuilder.Entity("CleanArchitectureCQRs.Domain.Entites.Category", b =>
                 {
-                    b.Property<Guid>("CategoryId")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("CategoryName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("CategoryId");
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
-                    b.ToTable("categories");
+                    b.HasKey("Id");
+
+                    b.ToTable("Categories");
 
                     b.HasData(
                         new
                         {
-                            CategoryId = new Guid("db72e407-4864-4ce0-8115-3eede4e44420"),
-                            CategoryName = "Electronics",
-                            Description = "Devices and gadgets"
+                            Id = new Guid("2247da39-e270-47fa-be67-9e7593ae1436"),
+                            Description = "Devices and gadgets",
+                            Name = "Electronics"
                         },
                         new
                         {
-                            CategoryId = new Guid("e1fc458c-cbe4-4697-869e-24cad9c40cb4"),
-                            CategoryName = "Books",
-                            Description = "Various genres of books"
+                            Id = new Guid("b17958bf-79e3-42c7-ba52-cc03c0951da3"),
+                            Description = "Various genres of books",
+                            Name = "Books"
                         },
                         new
                         {
-                            CategoryId = new Guid("2dd03caa-bd6e-4cfe-b399-101fe234751a"),
-                            CategoryName = "Clothing",
-                            Description = "Apparel for men and women"
+                            Id = new Guid("2540a5c5-59a1-41e2-aab4-4e279713b460"),
+                            Description = "Apparel for men and women",
+                            Name = "Clothing"
                         },
                         new
                         {
-                            CategoryId = new Guid("2711ad5b-7850-4987-a4d5-a0db63eb6ba9"),
-                            CategoryName = "Home & Kitchen",
-                            Description = "Household items"
+                            Id = new Guid("fd1e0505-d4ae-4b57-8360-2e75044c2bcb"),
+                            Description = "Household items",
+                            Name = "Home & Kitchen"
                         },
                         new
                         {
-                            CategoryId = new Guid("2d71b722-2683-4f22-b76f-47b65215862a"),
-                            CategoryName = "Sports",
-                            Description = "Sporting goods and equipment"
+                            Id = new Guid("c860759c-95ba-47cc-bf76-4116ee4c58cd"),
+                            Description = "Sporting goods and equipment",
+                            Name = "Sports"
                         },
                         new
                         {
-                            CategoryId = new Guid("47605a6e-c86f-4280-bc88-819f7761eed7"),
-                            CategoryName = "Toys",
-                            Description = "Toys for children of all ages"
+                            Id = new Guid("dd2987de-c77b-407d-8e3e-64c622dcaa74"),
+                            Description = "Toys for children of all ages",
+                            Name = "Toys"
                         },
                         new
                         {
-                            CategoryId = new Guid("16c88735-51ab-4a32-b1fb-36c2ede09b3a"),
-                            CategoryName = "Health & Beauty",
-                            Description = "Healthcare and beauty products"
+                            Id = new Guid("7a4fba39-8db6-49fb-a1fa-a813f0321e93"),
+                            Description = "Healthcare and beauty products",
+                            Name = "Health & Beauty"
                         },
                         new
                         {
-                            CategoryId = new Guid("7b3a315a-8b3c-4ab8-b3e5-17d138a40340"),
-                            CategoryName = "Automotive",
-                            Description = "Car parts and accessories"
+                            Id = new Guid("41e737b0-d505-4965-afef-50912cf06ad0"),
+                            Description = "Car parts and accessories",
+                            Name = "Automotive"
                         },
                         new
                         {
-                            CategoryId = new Guid("331663d3-75df-487c-8ef0-00ec96782af2"),
-                            CategoryName = "Music",
-                            Description = "Instruments and music equipment"
+                            Id = new Guid("8fc52087-815c-474a-93cd-7c77770d25c5"),
+                            Description = "Instruments and music equipment",
+                            Name = "Music"
                         },
                         new
                         {
-                            CategoryId = new Guid("04c4ffe2-4d94-487e-b889-0caaebb771e1"),
-                            CategoryName = "Office Supplies",
-                            Description = "Stationery and office essentials"
+                            Id = new Guid("c2b405fb-cd94-4c6c-b577-587243d673dc"),
+                            Description = "Stationery and office essentials",
+                            Name = "Office Supplies"
                         });
                 });
 
             modelBuilder.Entity("CleanArchitectureCQRs.Domain.Entites.Product", b =>
                 {
-                    b.Property<Guid>("ProductId")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
@@ -127,17 +127,17 @@ namespace CleanArchitectureCQRs.Infrastructure.Migrations
                     b.Property<int>("Price")
                         .HasColumnType("int");
 
-                    b.HasKey("ProductId");
+                    b.HasKey("Id");
 
                     b.HasIndex("CategoryId");
 
-                    b.ToTable("products");
+                    b.ToTable("Products");
 
                     b.HasData(
                         new
                         {
-                            ProductId = new Guid("27026ad2-227d-4565-bb9a-a73617ef4aaf"),
-                            CategoryId = new Guid("db72e407-4864-4ce0-8115-3eede4e44420"),
+                            Id = new Guid("126028d4-c5a1-4da7-adb9-b841fd7155e9"),
+                            CategoryId = new Guid("2247da39-e270-47fa-be67-9e7593ae1436"),
                             Description = "Latest model",
                             Image = "smartphone.jpg",
                             Name = "Smartphone",
@@ -145,8 +145,8 @@ namespace CleanArchitectureCQRs.Infrastructure.Migrations
                         },
                         new
                         {
-                            ProductId = new Guid("79a1f31d-1d71-42ea-b40b-56f9d6378246"),
-                            CategoryId = new Guid("db72e407-4864-4ce0-8115-3eede4e44420"),
+                            Id = new Guid("eb50f9ec-8d0e-4040-8e9b-f6ace8eb7c4b"),
+                            CategoryId = new Guid("2247da39-e270-47fa-be67-9e7593ae1436"),
                             Description = "15-inch display",
                             Image = "laptop.jpg",
                             Name = "Laptop",
@@ -154,8 +154,8 @@ namespace CleanArchitectureCQRs.Infrastructure.Migrations
                         },
                         new
                         {
-                            ProductId = new Guid("39865d58-f2dc-4b85-93ae-2f9a178a395b"),
-                            CategoryId = new Guid("db72e407-4864-4ce0-8115-3eede4e44420"),
+                            Id = new Guid("6a5b2fa8-7983-4918-80dc-939cf1d5b51a"),
+                            CategoryId = new Guid("2247da39-e270-47fa-be67-9e7593ae1436"),
                             Description = "Water-resistant smartwatch",
                             Image = "smartwatch.jpg",
                             Name = "Smartwatch",
@@ -163,8 +163,8 @@ namespace CleanArchitectureCQRs.Infrastructure.Migrations
                         },
                         new
                         {
-                            ProductId = new Guid("7df2e22a-d643-463e-bf3b-af3aa0e5b1dc"),
-                            CategoryId = new Guid("e1fc458c-cbe4-4697-869e-24cad9c40cb4"),
+                            Id = new Guid("81265d34-cc0b-4e71-bdda-fbbd34b64b3d"),
+                            CategoryId = new Guid("b17958bf-79e3-42c7-ba52-cc03c0951da3"),
                             Description = "Portable e-book reader",
                             Image = "ebook.jpg",
                             Name = "E-book Reader",
@@ -172,8 +172,8 @@ namespace CleanArchitectureCQRs.Infrastructure.Migrations
                         },
                         new
                         {
-                            ProductId = new Guid("dc866dd1-6d16-4870-b4ad-3d7a7a7d0777"),
-                            CategoryId = new Guid("e1fc458c-cbe4-4697-869e-24cad9c40cb4"),
+                            Id = new Guid("cb3d9eda-8cd4-4989-8a2a-f48f54844133"),
+                            CategoryId = new Guid("b17958bf-79e3-42c7-ba52-cc03c0951da3"),
                             Description = "Bestselling novel",
                             Image = "book.jpg",
                             Name = "Fiction Book",
@@ -181,8 +181,8 @@ namespace CleanArchitectureCQRs.Infrastructure.Migrations
                         },
                         new
                         {
-                            ProductId = new Guid("e6ea9f17-ac41-4ad0-8c86-942831accfad"),
-                            CategoryId = new Guid("e1fc458c-cbe4-4697-869e-24cad9c40cb4"),
+                            Id = new Guid("81f0cc1f-f46d-4bfb-8474-074d3a28583e"),
+                            CategoryId = new Guid("b17958bf-79e3-42c7-ba52-cc03c0951da3"),
                             Description = "Self-improvement guide",
                             Image = "self_help.jpg",
                             Name = "Self-help Book",
@@ -190,8 +190,8 @@ namespace CleanArchitectureCQRs.Infrastructure.Migrations
                         },
                         new
                         {
-                            ProductId = new Guid("c87d4738-0453-4021-94b9-8d3a0db61fa1"),
-                            CategoryId = new Guid("2dd03caa-bd6e-4cfe-b399-101fe234751a"),
+                            Id = new Guid("00c288d9-e2b5-489c-933f-4076d7f24978"),
+                            CategoryId = new Guid("2540a5c5-59a1-41e2-aab4-4e279713b460"),
                             Description = "Cotton T-shirt",
                             Image = "tshirt.jpg",
                             Name = "T-shirt",
@@ -199,8 +199,8 @@ namespace CleanArchitectureCQRs.Infrastructure.Migrations
                         },
                         new
                         {
-                            ProductId = new Guid("8c17c175-ff51-4ae9-943c-2343f1405b90"),
-                            CategoryId = new Guid("2dd03caa-bd6e-4cfe-b399-101fe234751a"),
+                            Id = new Guid("73b2066b-59c7-4680-8397-40a7c629d9ed"),
+                            CategoryId = new Guid("2540a5c5-59a1-41e2-aab4-4e279713b460"),
                             Description = "Denim jeans",
                             Image = "jeans.jpg",
                             Name = "Jeans",
@@ -208,8 +208,8 @@ namespace CleanArchitectureCQRs.Infrastructure.Migrations
                         },
                         new
                         {
-                            ProductId = new Guid("4a94cff0-0b2f-4013-8ea3-2dac82543093"),
-                            CategoryId = new Guid("2dd03caa-bd6e-4cfe-b399-101fe234751a"),
+                            Id = new Guid("7ea8b742-f707-401b-bebd-4fadfac48bac"),
+                            CategoryId = new Guid("2540a5c5-59a1-41e2-aab4-4e279713b460"),
                             Description = "Leather jacket",
                             Image = "jacket.jpg",
                             Name = "Jacket",
@@ -217,8 +217,8 @@ namespace CleanArchitectureCQRs.Infrastructure.Migrations
                         },
                         new
                         {
-                            ProductId = new Guid("4f73ae5a-0b04-472c-94aa-13189edf21fc"),
-                            CategoryId = new Guid("2711ad5b-7850-4987-a4d5-a0db63eb6ba9"),
+                            Id = new Guid("d73345ca-42db-4fc2-91d0-664847a278ec"),
+                            CategoryId = new Guid("fd1e0505-d4ae-4b57-8360-2e75044c2bcb"),
                             Description = "High-speed blender",
                             Image = "blender.jpg",
                             Name = "Blender",
@@ -226,8 +226,8 @@ namespace CleanArchitectureCQRs.Infrastructure.Migrations
                         },
                         new
                         {
-                            ProductId = new Guid("405e8e1a-07f8-4cc1-9ed8-646e8d893624"),
-                            CategoryId = new Guid("2711ad5b-7850-4987-a4d5-a0db63eb6ba9"),
+                            Id = new Guid("ad737a97-55b4-4453-9e54-7ac56d250387"),
+                            CategoryId = new Guid("fd1e0505-d4ae-4b57-8360-2e75044c2bcb"),
                             Description = "Comfortable sofa",
                             Image = "couch.jpg",
                             Name = "Couch",
@@ -235,8 +235,8 @@ namespace CleanArchitectureCQRs.Infrastructure.Migrations
                         },
                         new
                         {
-                            ProductId = new Guid("8cb4a577-86c4-4d21-b8fa-51feecb1a080"),
-                            CategoryId = new Guid("2711ad5b-7850-4987-a4d5-a0db63eb6ba9"),
+                            Id = new Guid("d251a43a-6006-4280-8103-1d8093c47418"),
+                            CategoryId = new Guid("fd1e0505-d4ae-4b57-8360-2e75044c2bcb"),
                             Description = "Automatic coffee machine",
                             Image = "coffee_maker.jpg",
                             Name = "Coffee Maker",
@@ -244,8 +244,8 @@ namespace CleanArchitectureCQRs.Infrastructure.Migrations
                         },
                         new
                         {
-                            ProductId = new Guid("e2958444-5a96-4124-bc5e-53e9cf094f4b"),
-                            CategoryId = new Guid("2d71b722-2683-4f22-b76f-47b65215862a"),
+                            Id = new Guid("6f9baea4-9716-4dfd-8940-8ca847c0183a"),
+                            CategoryId = new Guid("c860759c-95ba-47cc-bf76-4116ee4c58cd"),
                             Description = "Official size basketball",
                             Image = "basketball.jpg",
                             Name = "Basketball",
@@ -253,8 +253,8 @@ namespace CleanArchitectureCQRs.Infrastructure.Migrations
                         },
                         new
                         {
-                            ProductId = new Guid("e07078a5-0ce1-4f8d-9ab4-c4abfb104e37"),
-                            CategoryId = new Guid("2d71b722-2683-4f22-b76f-47b65215862a"),
+                            Id = new Guid("4c000cd4-a3c3-4e24-bd6b-a64ae804a085"),
+                            CategoryId = new Guid("c860759c-95ba-47cc-bf76-4116ee4c58cd"),
                             Description = "Lightweight racket",
                             Image = "racket.jpg",
                             Name = "Tennis Racket",
@@ -262,8 +262,8 @@ namespace CleanArchitectureCQRs.Infrastructure.Migrations
                         },
                         new
                         {
-                            ProductId = new Guid("6bdf8817-e7da-4ce7-b94a-2fec19e4e085"),
-                            CategoryId = new Guid("2d71b722-2683-4f22-b76f-47b65215862a"),
+                            Id = new Guid("91909d80-f091-4e76-bd01-d1de304598bb"),
+                            CategoryId = new Guid("c860759c-95ba-47cc-bf76-4116ee4c58cd"),
                             Description = "High-performance running shoes",
                             Image = "running_shoes.jpg",
                             Name = "Running Shoes",
@@ -271,8 +271,8 @@ namespace CleanArchitectureCQRs.Infrastructure.Migrations
                         },
                         new
                         {
-                            ProductId = new Guid("0a27982e-34db-4c8c-9cd4-17678824da1e"),
-                            CategoryId = new Guid("47605a6e-c86f-4280-bc88-819f7761eed7"),
+                            Id = new Guid("138a487b-192e-4927-a779-ce2cf0d14083"),
+                            CategoryId = new Guid("dd2987de-c77b-407d-8e3e-64c622dcaa74"),
                             Description = "Popular action figure",
                             Image = "action_figure.jpg",
                             Name = "Action Figure",
@@ -280,8 +280,8 @@ namespace CleanArchitectureCQRs.Infrastructure.Migrations
                         },
                         new
                         {
-                            ProductId = new Guid("3018f70e-d15e-4c69-89ae-a3c3dc5c2782"),
-                            CategoryId = new Guid("47605a6e-c86f-4280-bc88-819f7761eed7"),
+                            Id = new Guid("ac43dabf-a220-4474-84c3-10b59b0503ec"),
+                            CategoryId = new Guid("dd2987de-c77b-407d-8e3e-64c622dcaa74"),
                             Description = "Remote control car",
                             Image = "toy_car.jpg",
                             Name = "Toy Car",
@@ -289,8 +289,8 @@ namespace CleanArchitectureCQRs.Infrastructure.Migrations
                         },
                         new
                         {
-                            ProductId = new Guid("b737837c-e328-435a-8bf1-c002eec9e4c8"),
-                            CategoryId = new Guid("47605a6e-c86f-4280-bc88-819f7761eed7"),
+                            Id = new Guid("4a2c0dbe-cd1f-4da1-95ba-beaab3de9883"),
+                            CategoryId = new Guid("dd2987de-c77b-407d-8e3e-64c622dcaa74"),
                             Description = "Colorful building blocks",
                             Image = "building_blocks.jpg",
                             Name = "Building Blocks",
@@ -298,8 +298,8 @@ namespace CleanArchitectureCQRs.Infrastructure.Migrations
                         },
                         new
                         {
-                            ProductId = new Guid("05b2bded-9c50-4c9d-9157-8acdec29e4dd"),
-                            CategoryId = new Guid("16c88735-51ab-4a32-b1fb-36c2ede09b3a"),
+                            Id = new Guid("894e02a1-78cc-4eb4-970c-5430abcd964e"),
+                            CategoryId = new Guid("7a4fba39-8db6-49fb-a1fa-a813f0321e93"),
                             Description = "Herbal shampoo",
                             Image = "shampoo.jpg",
                             Name = "Shampoo",
@@ -307,8 +307,8 @@ namespace CleanArchitectureCQRs.Infrastructure.Migrations
                         },
                         new
                         {
-                            ProductId = new Guid("7ec02090-e500-4115-996b-fa70c656e003"),
-                            CategoryId = new Guid("16c88735-51ab-4a32-b1fb-36c2ede09b3a"),
+                            Id = new Guid("fac6ffea-12cf-4e8f-8bbb-3de06f8cbe0e"),
+                            CategoryId = new Guid("7a4fba39-8db6-49fb-a1fa-a813f0321e93"),
                             Description = "Anti-aging cream",
                             Image = "face_cream.jpg",
                             Name = "Face Cream",
@@ -316,8 +316,8 @@ namespace CleanArchitectureCQRs.Infrastructure.Migrations
                         },
                         new
                         {
-                            ProductId = new Guid("4790871f-e5a1-48f8-a3ae-5d9a02ac8878"),
-                            CategoryId = new Guid("16c88735-51ab-4a32-b1fb-36c2ede09b3a"),
+                            Id = new Guid("30c47023-5b69-4261-b13e-0d91fc140584"),
+                            CategoryId = new Guid("7a4fba39-8db6-49fb-a1fa-a813f0321e93"),
                             Description = "Electric toothbrush",
                             Image = "toothbrush.jpg",
                             Name = "Toothbrush",
@@ -325,8 +325,8 @@ namespace CleanArchitectureCQRs.Infrastructure.Migrations
                         },
                         new
                         {
-                            ProductId = new Guid("cc51d424-c008-4334-8e72-a432e12985e8"),
-                            CategoryId = new Guid("7b3a315a-8b3c-4ab8-b3e5-17d138a40340"),
+                            Id = new Guid("e54bff2d-3315-4149-b953-9a7d856d1285"),
+                            CategoryId = new Guid("41e737b0-d505-4965-afef-50912cf06ad0"),
                             Description = "12V car battery",
                             Image = "car_battery.jpg",
                             Name = "Car Battery",
@@ -334,8 +334,8 @@ namespace CleanArchitectureCQRs.Infrastructure.Migrations
                         },
                         new
                         {
-                            ProductId = new Guid("61a12273-71ac-425b-95e4-44f2fc874900"),
-                            CategoryId = new Guid("7b3a315a-8b3c-4ab8-b3e5-17d138a40340"),
+                            Id = new Guid("577dfdb7-8a33-4f68-af7e-538971cd7313"),
+                            CategoryId = new Guid("41e737b0-d505-4965-afef-50912cf06ad0"),
                             Description = "Leather seat cover",
                             Image = "seat_cover.jpg",
                             Name = "Car Seat Cover",
@@ -343,8 +343,8 @@ namespace CleanArchitectureCQRs.Infrastructure.Migrations
                         },
                         new
                         {
-                            ProductId = new Guid("74ed12b5-11c2-45e8-97fc-14deee57aa7b"),
-                            CategoryId = new Guid("7b3a315a-8b3c-4ab8-b3e5-17d138a40340"),
+                            Id = new Guid("4defe845-7bdc-4d3c-99f0-f467eeb24349"),
+                            CategoryId = new Guid("41e737b0-d505-4965-afef-50912cf06ad0"),
                             Description = "Portable tire inflator",
                             Image = "tire_inflator.jpg",
                             Name = "Tire Inflator",
@@ -352,8 +352,8 @@ namespace CleanArchitectureCQRs.Infrastructure.Migrations
                         },
                         new
                         {
-                            ProductId = new Guid("1c465a17-a117-4ea7-b2a6-bf3e3a8123db"),
-                            CategoryId = new Guid("331663d3-75df-487c-8ef0-00ec96782af2"),
+                            Id = new Guid("038840b3-6033-4e85-84af-bd787f7cbfde"),
+                            CategoryId = new Guid("8fc52087-815c-474a-93cd-7c77770d25c5"),
                             Description = "Acoustic guitar",
                             Image = "guitar.jpg",
                             Name = "Guitar",
@@ -361,8 +361,8 @@ namespace CleanArchitectureCQRs.Infrastructure.Migrations
                         },
                         new
                         {
-                            ProductId = new Guid("a8113b83-4a2a-4b8c-9cb1-e5d49b1c783b"),
-                            CategoryId = new Guid("331663d3-75df-487c-8ef0-00ec96782af2"),
+                            Id = new Guid("3afe687b-8303-4246-ac95-ab18ea7c598d"),
+                            CategoryId = new Guid("8fc52087-815c-474a-93cd-7c77770d25c5"),
                             Description = "Complete drum kit",
                             Image = "drum_set.jpg",
                             Name = "Drum Set",
@@ -370,8 +370,8 @@ namespace CleanArchitectureCQRs.Infrastructure.Migrations
                         },
                         new
                         {
-                            ProductId = new Guid("9c916fbb-8b45-4881-82ef-bc474772eaa0"),
-                            CategoryId = new Guid("331663d3-75df-487c-8ef0-00ec96782af2"),
+                            Id = new Guid("d4450736-95da-493f-8234-29db76797330"),
+                            CategoryId = new Guid("8fc52087-815c-474a-93cd-7c77770d25c5"),
                             Description = "Digital piano",
                             Image = "piano.jpg",
                             Name = "Piano",
@@ -379,8 +379,8 @@ namespace CleanArchitectureCQRs.Infrastructure.Migrations
                         },
                         new
                         {
-                            ProductId = new Guid("52cf97cd-5d44-437e-8714-9f5034f4878e"),
-                            CategoryId = new Guid("04c4ffe2-4d94-487e-b889-0caaebb771e1"),
+                            Id = new Guid("8e7fdbd4-7351-4505-8bda-bbb9283aefb5"),
+                            CategoryId = new Guid("c2b405fb-cd94-4c6c-b577-587243d673dc"),
                             Description = "Heavy-duty stapler",
                             Image = "stapler.jpg",
                             Name = "Stapler",
@@ -388,8 +388,8 @@ namespace CleanArchitectureCQRs.Infrastructure.Migrations
                         },
                         new
                         {
-                            ProductId = new Guid("a74ca1f3-8a60-421d-a685-d7bfec237921"),
-                            CategoryId = new Guid("04c4ffe2-4d94-487e-b889-0caaebb771e1"),
+                            Id = new Guid("4175e1dc-0d9d-416e-81bb-a7c5e526483d"),
+                            CategoryId = new Guid("c2b405fb-cd94-4c6c-b577-587243d673dc"),
                             Description = "Laser printer",
                             Image = "printer.jpg",
                             Name = "Printer",
@@ -397,8 +397,8 @@ namespace CleanArchitectureCQRs.Infrastructure.Migrations
                         },
                         new
                         {
-                            ProductId = new Guid("91c219c3-c300-4fc1-800b-ac1ccc4fa0e9"),
-                            CategoryId = new Guid("04c4ffe2-4d94-487e-b889-0caaebb771e1"),
+                            Id = new Guid("0b268822-359e-40e6-9723-0ef6af520600"),
+                            CategoryId = new Guid("c2b405fb-cd94-4c6c-b577-587243d673dc"),
                             Description = "Ergonomic office chair",
                             Image = "desk_chair.jpg",
                             Name = "Desk Chair",
@@ -408,15 +408,17 @@ namespace CleanArchitectureCQRs.Infrastructure.Migrations
 
             modelBuilder.Entity("CleanArchitectureCQRs.Domain.Entites.Wishlist", b =>
                 {
-                    b.Property<Guid>("ProductId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<Guid>("UsersId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.HasKey("ProductId", "UsersId");
+                    b.Property<Guid>("ProductId")
+                        .HasColumnType("uniqueidentifier");
 
-                    b.ToTable("wishLists");
+                    b.HasKey("UsersId", "ProductId");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("Wishlists");
                 });
 
             modelBuilder.Entity("CleanArchitectureCQRs.Domain.Entites.Product", b =>
@@ -433,7 +435,7 @@ namespace CleanArchitectureCQRs.Infrastructure.Migrations
             modelBuilder.Entity("CleanArchitectureCQRs.Domain.Entites.Wishlist", b =>
                 {
                     b.HasOne("CleanArchitectureCQRs.Domain.Entites.Product", "Product")
-                        .WithMany("Wishlist")
+                        .WithMany("Wishlists")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -448,7 +450,7 @@ namespace CleanArchitectureCQRs.Infrastructure.Migrations
 
             modelBuilder.Entity("CleanArchitectureCQRs.Domain.Entites.Product", b =>
                 {
-                    b.Navigation("Wishlist");
+                    b.Navigation("Wishlists");
                 });
 #pragma warning restore 612, 618
         }

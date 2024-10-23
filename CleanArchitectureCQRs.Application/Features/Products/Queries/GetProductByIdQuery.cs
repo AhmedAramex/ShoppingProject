@@ -1,5 +1,5 @@
-﻿using CleanArchitectureCQRs.Application.Interfaces.Repositories;
-using CleanArchitectureCQRs.Domain.Dtos;
+﻿using AutoMapper;
+using CleanArchitectureCQRs.Application.Interfaces.Repositories;
 using CleanArchitectureCQRs.Domain.Entites;
 using MediatR;
 
@@ -10,25 +10,23 @@ public record GetProductByIdQuery(Guid Id) : IRequest<ProductDto?>;
 public class GetProductQueryHandler : IRequestHandler<GetProductByIdQuery, ProductDto?>
 {
     private readonly IGenericRepository<Product> _productRepositroy;
+    private readonly IMapper _mapper;
 
-    public GetProductQueryHandler(IGenericRepository<Product> productRepositroy)
+    public GetProductQueryHandler(IGenericRepository<Product> productRepositroy, IMapper mapper)
     {
         _productRepositroy = productRepositroy;
+        _mapper = mapper;
     }
 
     public async Task<ProductDto?> Handle(GetProductByIdQuery request, CancellationToken cancellationToken)
     {
         var product = await _productRepositroy.GetByIdAsync(request.Id);
-
-
-
-        return new ProductDto()
+        if (product == null)
         {
-            Id = product.Id,
-            Name = product.Name,
-            Description = product.Description,
-            Price = product.Price,
-        };
-    }
+            return null;
+        }
 
+        var productDto = _mapper.Map<ProductDto>(product);
+        return productDto;
+    }
 }

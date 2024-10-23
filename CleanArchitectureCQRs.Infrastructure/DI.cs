@@ -15,7 +15,20 @@ public static class DI
         services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(config.GetConnectionString("TestDBConnection")));
         services.AddDbContext<IdentityContext>(options => options.UseSqlServer(config.GetConnectionString("IdentityDBConnection")));
 
+        services.AddIdentityCore<AppUser>().AddEntityFrameworkStores<IdentityContext>();
+        //services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(opts => opts.TokenValidationParameters = new TokenValidationParameters()
+        //{
+        //    ValidateIssuer = true,
+        //    ValidateAudience = true,
+        //    ValidateLifetime = true,
+        //    ValidateIssuerSigningKey = true,
+        //    ValidIssuer = config["Jwt:Issuer"],
+        //    ValidAudience = config["Jwt:Audience"],
+        //    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config["Jwt:Key"]))
+        //});
+
         services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+
 
         return services;
     }

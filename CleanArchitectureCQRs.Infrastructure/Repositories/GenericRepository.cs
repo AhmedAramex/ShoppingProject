@@ -2,6 +2,7 @@
 using CleanArchitectureCQRs.Domain.Abstractions;
 using CleanArchitectureCQRs.Infrastructure.Context;
 using Microsoft.EntityFrameworkCore;
+using System.Linq.Expressions;
 
 namespace CleanArchitectureCQRs.Infrastructure.Repositories;
 
@@ -55,5 +56,5 @@ public class GenericRepository<T> : IGenericRepository<T> where T : BaseEntity, 
         _dbContext.Entry(entity).State = EntityState.Modified;
     }
 
-
+    public async Task<List<T>> WhereAsync(Expression<Func<T, bool>> predicate) => await _dbContext.Set<T>().Where(predicate).ToListAsync();
 }

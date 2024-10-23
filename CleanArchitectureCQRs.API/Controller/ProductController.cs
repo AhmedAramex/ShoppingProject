@@ -22,12 +22,27 @@ public class ProductController : BaseController
         return Ok(result);
     }
 
-    [HttpGet]
-    public async Task<IActionResult> GetProductAsync(Guid id)
+    [HttpGet("Product/{ProductId}")]
+    public async Task<IActionResult> GetProductAsync(Guid ProductId)
     {
         try
         {
-            var result = await _mediator.Send(new GetProductByIdQuery(id));
+            var result = await _mediator.Send(new GetProductByIdQuery(ProductId));
+            if (result is null) return BadRequest("Product is not found!");
+            return Ok(result);
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
+    }
+
+    [HttpGet("by-category/{categoryId}")]
+    public async Task<IActionResult> GetProductByCategoryIdAsync(Guid categoryId)
+    {
+        try
+        {
+            var result = await _mediator.Send(new GetProductsByCategory(categoryId));
             return Ok(result);
         }
         catch (Exception ex)

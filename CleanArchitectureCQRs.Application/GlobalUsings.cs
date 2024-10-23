@@ -1,0 +1,1 @@
+﻿global using CleanArchitectureCQRs.Application.Features.Products.Dtos;
