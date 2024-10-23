@@ -1,9 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿//using Microsoft.AspNetCore.Mvc;
 
-namespace CleanArchitectureCQRs.API.Controller;
+//namespace CleanArchitectureCQRs.API.Controller;
 
-public class UserController : BaseController
-{
-    [HttpPost]
+//public class UserController : BaseController
+//{
+//    [HttpPost]
 
-}
+//}
