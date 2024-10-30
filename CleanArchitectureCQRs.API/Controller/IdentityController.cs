@@ -10,13 +10,13 @@ public class UserController : BaseController
 {
 
     private readonly UserManager<AppUser> _userManager;
-    private readonly HelpersClass _helpers;
+    private readonly AuthService authService;
 
 
-    public UserController(UserManager<AppUser> userManager, HelpersClass helpers)
+    public UserController(UserManager<AppUser> userManager, AuthService authService)
     {
         _userManager = userManager;
-        _helpers = helpers;
+        this.authService = authService;
     }
 
     [HttpPost]
@@ -44,18 +44,20 @@ public class UserController : BaseController
     [Route("Login")]
     public async Task<IActionResult> Login(LoginDTO loginDTO)
     {
-        if (!ModelState.IsValid)
-            return BadRequest(ModelState);
 
-        var Result = await _userManager.FindByEmailAsync(loginDTO.Email);
-        if (Result is null) return Unauthorized();
 
-        return Ok(new
-        {
-            userName = Result.UserName,
-            Email = Result.Email,
-            Token = _helpers.TokenGenerator(loginDTO)
-        });
+        //if (!ModelState.IsValid)
+        //    return BadRequest(ModelState);
+
+        //var Result = await _userManager.FindByEmailAsync(loginDTO.Email);
+        //if (Result is null) return Unauthorized();
+
+        //return Ok(new
+        //{
+        //    userName = Result.UserName,
+        //    Email = Result.Email,
+        //    Token = _helpers.TokenGenerator(loginDTO)
+        //});
     }
 
 }
