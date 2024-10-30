@@ -1,5 +1,4 @@
 ﻿using CleanArchitectureCQRs.Application.Features.Dtos;
-using CleanArchitectureCQRs.Application.HelpersClass;
 using CleanArchitectureCQRs.Infrastructure.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -10,13 +9,13 @@ public class UserController : BaseController
 {
 
     private readonly UserManager<AppUser> _userManager;
-    private readonly AuthService authService;
+    private readonly AuthService _authService;
 
 
     public UserController(UserManager<AppUser> userManager, AuthService authService)
     {
         _userManager = userManager;
-        this.authService = authService;
+        _authService = authService;
     }
 
     [HttpPost]
@@ -45,7 +44,8 @@ public class UserController : BaseController
     public async Task<IActionResult> Login(LoginDTO loginDTO)
     {
 
-
+        var Result = _authService.Login(loginDTO);
+        return Ok(Result);
         //if (!ModelState.IsValid)
         //    return BadRequest(ModelState);
 

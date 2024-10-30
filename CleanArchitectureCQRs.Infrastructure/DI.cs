@@ -1,5 +1,4 @@
-﻿using CleanArchitectureCQRs.Application.HelpersClass;
-using CleanArchitectureCQRs.Application.Interfaces.Repositories;
+﻿using CleanArchitectureCQRs.Application.Interfaces.Repositories;
 using CleanArchitectureCQRs.Infrastructure.Context;
 using CleanArchitectureCQRs.Infrastructure.Identity;
 using CleanArchitectureCQRs.Infrastructure.Repositories;
@@ -7,7 +6,6 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Options;
 
 namespace CleanArchitectureCQRs.Infrastructure;
 
@@ -35,7 +33,7 @@ public static class DI
 
         services.AddAuthentication();
         services.AddAuthorization();
-        services.AddSingleton<HelpersClass>();
+        services.AddScoped<AuthService>();
         //services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(opts => opts.TokenValidationParameters = new TokenValidationParameters()
         //{
         //    ValidateIssuer = true,
