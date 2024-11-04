@@ -1,17 +1,18 @@
 ﻿using CleanArchitectureCQRs.Application.Features.Users.UsersDTOs;
 using CleanArchitectureCQRs.Application.Interfaces;
+using CleanArchitectureCQRs.Domain.Common;
 using MediatR;
 
 namespace CleanArchitectureCQRs.Application.Features.Users.LoginUser;
 
-public class LoginUserQuery : IRequest<LoginResponseDTO>
+public class LoginUserQuery : IRequest<Result<LoginResponseDTO>>
 {
     public required string Username { get; set; }
     public required string Password { get; set; }
     public required string Email { get; set; }
 }
 
-public class LogInUserHandler : IRequestHandler<LoginUserQuery, LoginResponseDTO>
+public class LogInUserHandler : IRequestHandler<LoginUserQuery, Result<LoginResponseDTO>>
 {
     private readonly IAuthService _authService;
 
@@ -20,25 +21,20 @@ public class LogInUserHandler : IRequestHandler<LoginUserQuery, LoginResponseDTO
         _authService = authService;
     }
 
-    public async Task<LoginResponseDTO> Handle(LoginUserQuery request, CancellationToken cancellationToken)
+    public async Task<Result<LoginResponseDTO>> Handle(LoginUserQuery request, CancellationToken cancellationToken)
     {
-        var Result = await _authService.LoginUserAsync(request.Username, request.Password, request.Email);
+        var result = await _authService.LoginUserAsync(request.Username, request.Password, request.Email);
 
-
-        if (Result is null)
+        if (result is null)
         {
-            return new LoginResponseDTO
-            {
-                Errors = "UserName or Password Is not Correct",
-            };
+            return Result<LoginResponseDTO>.Failed(new Error("UserName or Password Is not Correct"));
         }
 
-        var UserData = new LoginResponseDTO
+        return Result<LoginResponseDTO>.Success(new LoginResponseDTO
         {
-            UserName = Result.UserName ?? "",
-            Token = Result.Token ?? ""
-        };
-        return UserData;
+            UserName = result.UserName ?? "",
+            Token = result.Token ?? ""
+        });
 
     }
 }

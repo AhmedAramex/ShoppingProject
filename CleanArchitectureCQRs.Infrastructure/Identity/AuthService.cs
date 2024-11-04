@@ -1,5 +1,6 @@
 ﻿using CleanArchitectureCQRs.Application.Features.Users.UsersDTOs;
 using CleanArchitectureCQRs.Application.Interfaces;
+using CleanArchitectureCQRs.Domain.Common;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
@@ -50,34 +51,26 @@ public class AuthService : IAuthService
 
     }
 
-    public async Task<object> RegisterUserAsync(RegisterationDTO registerationDTO)
+    public async Task<Result> RegisterUserAsync(RegisterationDTO registerationDTO)
     {
-        try
+        var user = new AppUser
         {
+            UserName = registerationDTO.UserName,
+            PhoneNumber = registerationDTO.PhoneNumber,
+            Email = registerationDTO.Email,
+            FirstName = registerationDTO.FirstName,
+            LastName = registerationDTO.LastName,
+        };
 
-            var user = new AppUser
-            {
-                UserName = registerationDTO.UserName,
-                PhoneNumber = registerationDTO.PhoneNumber,
-                Email = registerationDTO.Email,
-                FirstName = registerationDTO.FirstName,
-                LastName = registerationDTO.LastName,
-            };
+        var result = await _userManager.CreateAsync(user, registerationDTO.Password);
 
-            var Result = await _userManager.CreateAsync(user, registerationDTO.Password);
-
-            if (!Result.Succeeded)
-            {
-                var Error = Result.Errors.Select(e => e.Description).ToList();
-            }
-
-            return Result;
-        }
-        catch (TaskCanceledException ex)
+        if (!result.Succeeded)
         {
-            return ex;
+            var errors = result.Errors.Select(e => new Error(e.Code, e.Description)).ToList();
+            return Result.Failed(errors);
         }
 
+        return Result.Success();
     }
 
     public string TokenGenerator(string UserName, string Email)
