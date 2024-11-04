@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using CleanArchitectureCQRs.Application.Interfaces;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace CleanArchitectureCQRs.Application;
 
@@ -9,6 +10,7 @@ public static class DI
         services.AddAutoMapper(typeof(DI));
         services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(DI).Assembly));
 
+        services.AddHttpContextAccessor();
         return services;
     }
 }

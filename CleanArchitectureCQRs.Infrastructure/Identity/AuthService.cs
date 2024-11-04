@@ -1,4 +1,6 @@
-﻿using CleanArchitectureCQRs.Application.Features.Dtos;
+﻿using CleanArchitectureCQRs.Application.Features.Users.UsersDTOs;
+using CleanArchitectureCQRs.Application.Interfaces;
+using CleanArchitectureCQRs.Domain.Common;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
@@ -8,7 +10,7 @@ using System.Text;
 
 namespace CleanArchitectureCQRs.Infrastructure.Identity;
 
-public class AuthService
+public class AuthService : IAuthService
 {
     private readonly UserManager<AppUser> _userManager;
     private readonly IConfiguration _configuration;
@@ -19,37 +21,74 @@ public class AuthService
         _configuration = config;
     }
 
-    public async Task<AppUser?> LoginUserAsync(string username, string password)
+    public async Task<LoginDTO?> LoginUserAsync(string username, string password, string email)
     {
-        var user = await _userManager.FindByNameAsync(username);
-        if (user is null) return null;
-
-        var passwordCorrect = await _userManager.CheckPasswordAsync(user, password);
-        if (!passwordCorrect) return null;
-
-        return user;
-    }
-
-    public async Task<LoginDTO> Login(LoginDTO loginDTO)
-    {
-        var Result = await _userManager.FindByEmailAsync(loginDTO.Email);
-
-        return new LoginDTO()
+        try
         {
-            UserName = Result.UserName,
-            Email = Result.Email,
-            Token = TokenGenerator(loginDTO)
-        };
+
+            var user = await _userManager.FindByNameAsync(username);
+            if (user is null) return null;
+
+            var passwordCorrect = await _userManager.CheckPasswordAsync(user, password);
+            if (!passwordCorrect) return null;
+
+            var UserData = new LoginDTO
+            {
+                UserName = user?.UserName ?? "",
+                Email = user?.Email ?? "",
+                Token = TokenGenerator(username, email)
+            };
+            return UserData;
+        }
+        catch (Exception ex)
+        {
+            var UserData = new LoginDTO
+            {
+                Errors = ex.Message
+            };
+            return UserData;
+        }
+
     }
 
-    public string TokenGenerator(LoginDTO loginDTO)
+    public async Task<object> RegisterUserAsync(RegisterationDTO registerationDTO)
+    {
+        try
+        {
+
+            var user = new AppUser
+            {
+                UserName = registerationDTO.UserName,
+                PhoneNumber = registerationDTO.PhoneNumber,
+                Email = registerationDTO.Email,
+                FirstName = registerationDTO.FirstName,
+                LastName = registerationDTO.LastName,
+            };
+
+            var Result = await _userManager.CreateAsync(user, registerationDTO.Password);
+
+            if (!Result.Succeeded)
+            {
+                var Error = Result.Errors.Select(e => e.Description).ToList();
+            }
+
+            return Result;
+        }
+        catch (TaskCanceledException ex)
+        {
+            return ex;
+        }
+
+    }
+
+    public string TokenGenerator(string UserName, string Email)
     {
         //payload using Claims 
         var Cliams = new List<Claim>
         {
             //Claim(claimType , value)
-            new Claim(ClaimTypes.Name , loginDTO.UserName),
-            new Claim(ClaimTypes.Email , loginDTO.Email)
+            new Claim(ClaimTypes.Name , UserName),
+            new Claim(ClaimTypes.Email , Email)
         };
         //secret key 
         var TokenKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:key"]));

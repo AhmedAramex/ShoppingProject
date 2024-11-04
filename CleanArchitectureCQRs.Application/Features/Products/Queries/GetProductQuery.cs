@@ -30,7 +30,7 @@ public class GetProductHandler : IRequestHandler<GetProductRequest, List<Product
             var productDTO = new ProductDto
             {
                 Id = request.ProductId,
-                Name = request.Name,
+                Name = request.Name ?? "",
                 Description = request.Description,
                 Price = request.Price,
             };

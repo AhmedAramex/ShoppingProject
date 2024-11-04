@@ -1,4 +1,4 @@
-﻿namespace CleanArchitectureCQRs.Domain.Dtos;
+﻿namespace CleanArchitectureCQRs.Application.Features.Users.UsersDTOs;
 
 public class UserDto
 {

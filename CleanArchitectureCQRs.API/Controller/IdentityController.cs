@@ -1,5 +1,7 @@
-﻿using CleanArchitectureCQRs.Application.Features.Dtos;
+﻿using CleanArchitectureCQRs.Application.Features.Users.CreateUser;
+using CleanArchitectureCQRs.Application.Features.Users.LoginUser;
 using CleanArchitectureCQRs.Infrastructure.Identity;
+using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,56 +10,37 @@ namespace CleanArchitectureCQRs.API.Controller;
 public class UserController : BaseController
 {
 
-    private readonly UserManager<AppUser> _userManager;
-    private readonly AuthService _authService;
+    private readonly IMediator _mediator;
 
-
-    public UserController(UserManager<AppUser> userManager, AuthService authService)
+    public UserController(IMediator mediator)
     {
-        _userManager = userManager;
-        _authService = authService;
+        _mediator = mediator;
     }
 
     [HttpPost]
     [Route("Registeration")]
-    public async Task<IActionResult> Registeration(RegisterationDTO registerationDTO)
+    public async Task<IActionResult> Registeration(CreateUserCommand createUserCommand)
     {
-        if (!ModelState.IsValid)
-            return BadRequest(ModelState);
-
-        var user = new AppUser
-        {
-            UserName = registerationDTO.UserName,
-            PhoneNumber = registerationDTO.phoneNumber,
-            Email = registerationDTO.email,
-        };
-
-        var Result = await _userManager.CreateAsync(user, registerationDTO.UserName);
-
-        if (!Result.Succeeded) return BadRequest(Result.Errors);
-
+        var Result = await _mediator.Send(createUserCommand);
+        if (!Result) return BadRequest("error Registeration");
         return Ok(Result);
     }
 
     [HttpPost]
     [Route("Login")]
-    public async Task<IActionResult> Login(LoginDTO loginDTO)
+    public async Task<IActionResult> Login(LoginUserQuery loginUserQuery)
     {
+        try
+        {
+            var Result = await _mediator.Send(loginUserQuery);
 
-        var Result = _authService.Login(loginDTO);
-        return Ok(Result);
-        //if (!ModelState.IsValid)
-        //    return BadRequest(ModelState);
-
-        //var Result = await _userManager.FindByEmailAsync(loginDTO.Email);
-        //if (Result is null) return Unauthorized();
-
-        //return Ok(new
-        //{
-        //    userName = Result.UserName,
-        //    Email = Result.Email,
-        //    Token = _helpers.TokenGenerator(loginDTO)
-        //});
+            return Ok(Result);
+        }
+        catch (Exception ex)
+        {
+            throw (ex);
+        }
     }
+
 
 }
