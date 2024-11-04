@@ -35,8 +35,8 @@ public class LogInUserHandler : IRequestHandler<LoginUserQuery, LoginResponseDTO
 
         var UserData = new LoginResponseDTO
         {
-            UserName = Result.UserName,
-            Token = Result.Token
+            UserName = Result.UserName ?? "",
+            Token = Result.Token ?? ""
         };
         return UserData;
 

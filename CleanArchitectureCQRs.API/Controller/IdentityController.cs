@@ -1,8 +1,6 @@
 ﻿using CleanArchitectureCQRs.Application.Features.Users.CreateUser;
 using CleanArchitectureCQRs.Application.Features.Users.LoginUser;
-using CleanArchitectureCQRs.Infrastructure.Identity;
 using MediatR;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CleanArchitectureCQRs.API.Controller;
@@ -38,6 +36,7 @@ public class UserController : BaseController
         }
         catch (Exception ex)
         {
+            return BadRequest(ex.Message);
             throw (ex);
         }
     }

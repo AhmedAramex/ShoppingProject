@@ -18,6 +18,7 @@ public class GetProductHandler : IRequestHandler<GetProductRequest, List<Product
 
     public GetProductHandler(IGenericRepository<Product> genericRepo)
     {
+        _genericRepo = genericRepo;
     }
 
     public async Task<List<ProductDto>> Handle(GetProductRequest request, CancellationToken cancellationToken)
