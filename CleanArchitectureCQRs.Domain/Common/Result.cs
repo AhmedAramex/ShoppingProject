@@ -28,12 +28,24 @@ public class Result<T>
         return res;
     }
 
-    public static Result<T> Error(List<Error> errors, ErrorType errorType = ErrorType.Validation)
+    public static Result<T> Failed(List<Error> errors, ErrorType errorType = ErrorType.Validation)
     {
         Result<T> res = new()
         {
             Succeed = false,
             Errors = errors,
+            ErrorType = errorType
+        };
+
+        return res;
+    }
+
+    public static Result<T> Failed(Error error, ErrorType errorType = ErrorType.Validation)
+    {
+        Result<T> res = new()
+        {
+            Succeed = false,
+            Errors = new List<Error>() { error },
             ErrorType = errorType
         };
 
@@ -57,7 +69,7 @@ public class Result
         return res;
     }
 
-    public static Result Error(List<Error> errors, ErrorType errorType = ErrorType.Validation)
+    public static Result Failed(List<Error> errors, ErrorType errorType = ErrorType.Validation)
     {
         Result res = new()
         {

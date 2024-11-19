@@ -19,9 +19,9 @@ public class UserController : BaseController
     [Route("Registeration")]
     public async Task<IActionResult> Registeration(CreateUserCommand createUserCommand)
     {
-        var Result = await _mediator.Send(createUserCommand);
-        if (!Result) return BadRequest("error Registeration");
-        return Ok(Result);
+        var result = await _mediator.Send(createUserCommand);
+        if (!result.Succeed) return BadRequest("error Registeration");
+        return Ok(result);
     }
 
     [HttpPost]

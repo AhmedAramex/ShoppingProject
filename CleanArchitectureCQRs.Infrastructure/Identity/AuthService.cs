@@ -1,5 +1,7 @@
 ﻿using CleanArchitectureCQRs.Application.Features.Users.UsersDTOs;
 using CleanArchitectureCQRs.Application.Interfaces;
+using CleanArchitectureCQRs.Domain;
+using CleanArchitectureCQRs.Domain.Common;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
@@ -50,7 +52,7 @@ public class AuthService : IAuthService
 
     }
 
-    public async Task<object> RegisterUserAsync(RegisterationDTO registerationDTO)
+    public async Task<Result> RegisterUserAsync(RegisterationDTO registerationDTO)
     {
         try
         {
@@ -64,20 +66,21 @@ public class AuthService : IAuthService
                 LastName = registerationDTO.LastName,
             };
 
-            var Result = await _userManager.CreateAsync(user, registerationDTO.Password);
+            var result = await _userManager.CreateAsync(user, registerationDTO.Password);
 
-            if (!Result.Succeeded)
+            if (!result.Succeeded)
             {
-                var Error = Result.Errors.Select(e => e.Description).ToList();
+                var error = result.Errors.Select(e => new Error(e.Code, e.Description)).ToList();
+
+                return Result.Failed(error);
             }
-
-            return Result;
+            var rule = await _userManager.AddToRoleAsync(user, registerationDTO.Role);
+            return Result.Success();
         }
-        catch (TaskCanceledException ex)
+        catch (Exception ex)
         {
-            return ex;
+            return null;
         }
-
     }
 
     public string TokenGenerator(string UserName, string Email)
@@ -87,7 +90,8 @@ public class AuthService : IAuthService
         {
             //Claim(claimType , value)
             new Claim(ClaimTypes.Name , UserName),
-            new Claim(ClaimTypes.Email , Email)
+            new Claim(ClaimTypes.Email , Email),
+            //new Claim (ClaimTypes.Role , UserName),
         };
         //secret key 
         var TokenKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:key"]));
@@ -104,5 +108,7 @@ public class AuthService : IAuthService
         var Token = new JwtSecurityTokenHandler().WriteToken(TokenGenerator);
         return Token;
     }
+
+
 
 }

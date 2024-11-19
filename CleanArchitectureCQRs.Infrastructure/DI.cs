@@ -29,7 +29,8 @@ public static class DI
             options.Password.RequiredUniqueChars = 0;
         })
         .AddEntityFrameworkStores<IdentityContext>()
-        .AddDefaultTokenProviders();
+        .AddDefaultTokenProviders()
+        .AddRoles<IdentityContext>();
 
         //Add Authentications DI //userManager //SignInManager //RoleManager
         services.AddAuthentication();

@@ -1,4 +1,5 @@
 ﻿using CleanArchitectureCQRs.Application.Features.Users.UsersDTOs;
+using CleanArchitectureCQRs.Domain.Common;
 
 namespace CleanArchitectureCQRs.Application.Interfaces
 {
@@ -7,7 +8,7 @@ namespace CleanArchitectureCQRs.Application.Interfaces
         string TokenGenerator(string UserName, string Email);
         Task<LoginDTO?> LoginUserAsync(string username, string password, string email);
 
-        Task<object> RegisterUserAsync(RegisterationDTO registerationDTO);
+        Task<Result> RegisterUserAsync(RegisterationDTO registerationDTO);
 
 
 

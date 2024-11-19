@@ -1,6 +1,3 @@
-﻿namespace CleanArchitectureCQRs.Domain.Common
-{
-    public class Error
-    {
-    }
-}
+﻿namespace CleanArchitectureCQRs.Domain.Common;
+
+public record Error(string Code, string Descreption);

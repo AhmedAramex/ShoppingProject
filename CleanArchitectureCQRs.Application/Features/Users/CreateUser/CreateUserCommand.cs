@@ -1,10 +1,11 @@
 ﻿using CleanArchitectureCQRs.Application.Features.Users.UsersDTOs;
 using CleanArchitectureCQRs.Application.Interfaces;
+using CleanArchitectureCQRs.Domain.Common;
 using MediatR;
 
 namespace CleanArchitectureCQRs.Application.Features.Users.CreateUser;
 
-public class CreateUserCommand : IRequest<bool>
+public class CreateUserCommand : IRequest<Result>
 {
     public required string UserName { get; set; }
     public required string Password { get; set; }
@@ -12,9 +13,10 @@ public class CreateUserCommand : IRequest<bool>
     public string? PhoneNumber { get; set; }
     public required string FirstName { get; set; }
     public required string LastName { get; set; }
+    public required string Role { get; set; }
 }
 
-public class CreateUserHandler : IRequestHandler<CreateUserCommand, bool>
+public class CreateUserHandler : IRequestHandler<CreateUserCommand, Result>
 {
     private readonly IAuthService _authService;
 
@@ -22,7 +24,7 @@ public class CreateUserHandler : IRequestHandler<CreateUserCommand, bool>
     {
         _authService = authService;
     }
-    public async Task<bool> Handle(CreateUserCommand request, CancellationToken cancellationToken)
+    public async Task<Result> Handle(CreateUserCommand request, CancellationToken cancellationToken)
     {
 
         var user = new RegisterationDTO
@@ -32,12 +34,12 @@ public class CreateUserHandler : IRequestHandler<CreateUserCommand, bool>
             Email = request.Email,
             PhoneNumber = request.PhoneNumber ?? "",
             FirstName = request.FirstName,
-            LastName = request.LastName
+            LastName = request.LastName,
+            Role = request.Role
         };
 
-        var Result = await _authService.RegisterUserAsync(user);
-        if (Result is null) return false;
+        var result = await _authService.RegisterUserAsync(user);
 
-        return true;
+        return result;
     }
 }

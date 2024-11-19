@@ -4,5 +4,6 @@ public enum ErrorType
 {
     Validation = 0,
     NotFound,
-    Conflict
+    Conflict,
+    InternalServerError
 }
