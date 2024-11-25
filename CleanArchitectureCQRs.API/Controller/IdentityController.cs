@@ -1,6 +1,7 @@
 ﻿using CleanArchitectureCQRs.Application.Features.Users.CreateUser;
 using CleanArchitectureCQRs.Application.Features.Users.LoginUser;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CleanArchitectureCQRs.API.Controller;

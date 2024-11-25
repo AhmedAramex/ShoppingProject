@@ -32,6 +32,7 @@ public static class DI
         .AddDefaultTokenProviders()
         .AddRoles<IdentityContext>();
 
+
         //Add Authentications DI //userManager //SignInManager //RoleManager
         services.AddAuthentication();
         services.AddAuthorization();
