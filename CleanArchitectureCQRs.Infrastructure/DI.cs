@@ -1,12 +1,17 @@
-﻿using CleanArchitectureCQRs.Application.Interfaces;
+﻿using Azure.Core;
+using CleanArchitectureCQRs.Application.Interfaces;
 using CleanArchitectureCQRs.Application.Interfaces.Repositories;
 using CleanArchitectureCQRs.Infrastructure.Context;
 using CleanArchitectureCQRs.Infrastructure.Identity;
 using CleanArchitectureCQRs.Infrastructure.Repositories;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using static System.Net.Mime.MediaTypeNames;
+using System;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace CleanArchitectureCQRs.Infrastructure;
 
@@ -31,18 +36,13 @@ public static class DI
         .AddEntityFrameworkStores<IdentityContext>()
         .AddDefaultTokenProviders()
         .AddRoles<IdentityContext>();
-
-
-        //Add Authentications DI //userManager //SignInManager //RoleManager
-        services.AddAuthentication();
-        services.AddAuthorization();
+        services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+        services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer();
+      
         services.AddHttpContextAccessor();
 
         //Add Services Allow DI
         services.AddScoped<IAuthService, AuthService>();
-
-        services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
-
 
         return services;
     }
