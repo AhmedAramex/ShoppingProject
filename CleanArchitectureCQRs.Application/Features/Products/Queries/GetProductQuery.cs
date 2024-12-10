@@ -1,4 +1,5 @@
-﻿using CleanArchitectureCQRs.Application.Interfaces.Repositories;
+﻿using AutoMapper;
+using CleanArchitectureCQRs.Application.Interfaces.Repositories;
 using CleanArchitectureCQRs.Domain.Entites;
 using MediatR;
 
@@ -15,27 +16,22 @@ public class GetProductRequest : IRequest<List<ProductDto>>
 public class GetProductHandler : IRequestHandler<GetProductRequest, List<ProductDto>>
 {
     private readonly IGenericRepository<Product> _genericRepo;
+    private readonly IMapper _mapper;
 
-    public GetProductHandler(IGenericRepository<Product> genericRepo)
+    public GetProductHandler(IGenericRepository<Product> genericRepo, IMapper mapper)
     {
         _genericRepo = genericRepo;
+        _mapper = mapper;
     }
 
     public async Task<List<ProductDto>> Handle(GetProductRequest request, CancellationToken cancellationToken)
     {
         var product = await _genericRepo.GetAllAsync();
-        //if (product is null) throw new Exception("Product Not Found");
         List<ProductDto> ProductList = new List<ProductDto>();
         foreach (var item in product)
         {
-            var productDTO = new ProductDto
-            {
-                Id = request.ProductId,
-                Name = request.Name ?? "",
-                Description = request.Description,
-                Price = request.Price,
-            };
-            ProductList.Add(productDTO);
+           var productmap = _mapper.Map<ProductDto>(item);
+            ProductList.Add(productmap);
         }
         return ProductList;
 

@@ -1,6 +1,10 @@
-﻿using CleanArchitectureCQRs.Application.Features.Products.Commands;
+﻿using CleanArchitectureCQRs.Application.Features.Categories.Queries;
+using CleanArchitectureCQRs.Application.Features.Products.Commands;
 using CleanArchitectureCQRs.Application.Features.Products.Queries;
+using CleanArchitectureCQRs.Application.Features.ProductsHandler.Queries;
 using MediatR;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CleanArchitectureCQRs.API.Controller;
@@ -22,8 +26,10 @@ public class ProductController : BaseController
         return Ok(result);
     }
 
+
+    [Authorize]
     [HttpGet("Product/{ProductId}")]
-    public async Task<IActionResult> GetProductAsync(Guid ProductId)
+    public async Task<IActionResult> GetProductByIdAsync(Guid ProductId)
     {
         try
         {
@@ -35,6 +41,21 @@ public class ProductController : BaseController
         {
             return BadRequest(ex.Message);
         }
+    }
+
+    [HttpGet("Products")]
+    public async Task<IActionResult> GetAllProductsAsync()
+    {
+        try 
+        {
+            var result = await _mediator.Send(new GetProductRequest());
+            return Ok(result);
+        }
+        catch(Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
+       
     }
 
     [HttpGet("by-category/{categoryId}")]
@@ -49,5 +70,20 @@ public class ProductController : BaseController
         {
             return BadRequest(ex.Message);
         }
+    }
+
+    [HttpGet("categories")]
+    public async Task<IActionResult> GetCategoriesAsync()
+    {
+        try
+        {
+            var result = await _mediator.Send(new GetCategories());
+
+            return Ok(result);
+        }catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
+        
     }
 }

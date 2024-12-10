@@ -1,8 +1,6 @@
 ﻿using CleanArchitectureCQRs.Application.Features.Users.CreateUser;
 using CleanArchitectureCQRs.Application.Features.Users.LoginUser;
 using MediatR;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CleanArchitectureCQRs.API.Controller;
@@ -17,7 +15,6 @@ public class UserController : BaseController
         _mediator = mediator;
     }
 
-    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [HttpPost]
     [Route("Registeration")]
     public async Task<IActionResult> Registeration(CreateUserCommand createUserCommand)

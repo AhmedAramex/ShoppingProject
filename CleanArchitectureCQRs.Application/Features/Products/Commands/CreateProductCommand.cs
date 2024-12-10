@@ -1,5 +1,4 @@
 ﻿using CleanArchitectureCQRs.Application.Interfaces.Repositories;
-using CleanArchitectureCQRs.Domain.Dtos;
 using CleanArchitectureCQRs.Domain.Entites;
 using FluentValidation;
 using MediatR;
@@ -36,17 +35,21 @@ public class CreateProductCommandHandler : IRequestHandler<CreateProductCommand,
 
     public async Task<bool> Handle(CreateProductCommand request, CancellationToken cancellationToken)
     {
-
-        await _productRepositroy.Add(new Product()
+        try
         {
-            Id = Guid.NewGuid(),
-            Name = request.Name,
-            Description = request.Description,
-            Price = request.Price,
-            CategoryId = (Guid)request.CategoryId,
-        });
 
-        await _productRepositroy.SaveAsync();
+            await _productRepositroy.Add(new Product()
+            {
+                Id = Guid.NewGuid(),
+                Name = request.Name,
+                Description = request.Description,
+                Price = request.Price,
+                CategoryId = (Guid)request.CategoryId,
+            });
+
+            await _productRepositroy.SaveAsync();
+        }
+        catch (Exception ex) { }
 
         return true;
     }
