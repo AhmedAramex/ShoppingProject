@@ -1,7 +1,7 @@
 ﻿using CleanArchitectureCQRs.Application.Features.Users.UsersDTOs;
 using CleanArchitectureCQRs.Application.Interfaces;
-using CleanArchitectureCQRs.Domain;
 using CleanArchitectureCQRs.Domain.Common;
+using CleanArchitectureCQRs.Infrastructure.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
@@ -9,7 +9,8 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 
-namespace CleanArchitectureCQRs.Infrastructure.Identity;
+
+namespace ExternalServices.AuthenticationService;
 
 public class AuthService : IAuthService
 {
@@ -108,7 +109,4 @@ public class AuthService : IAuthService
         var Token = new JwtSecurityTokenHandler().WriteToken(TokenGenerator);
         return Token;
     }
-
-
-
 }

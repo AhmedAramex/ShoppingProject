@@ -3,13 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34525.116
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CleanArchitectureCQRs.Domain", "CleanArchitectureCQRs.Domain\CleanArchitectureCQRs.Domain.csproj", "{1AEFEA4C-C48F-405E-8119-0EADF1BB3155}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CleanArchitectureCQRs.Domain", "CleanArchitectureCQRs.Domain\CleanArchitectureCQRs.Domain.csproj", "{1AEFEA4C-C48F-405E-8119-0EADF1BB3155}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CleanArchitectureCQRs.Application", "CleanArchitectureCQRs.Application\CleanArchitectureCQRs.Application.csproj", "{C3643224-F303-489F-B3C4-9082700D0D83}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CleanArchitectureCQRs.Application", "CleanArchitectureCQRs.Application\CleanArchitectureCQRs.Application.csproj", "{C3643224-F303-489F-B3C4-9082700D0D83}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CleanArchitectureCQRs.Infrastructure", "CleanArchitectureCQRs.Infrastructure\CleanArchitectureCQRs.Infrastructure.csproj", "{456BF464-4576-4E16-AEB9-7EC1E7DDF878}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CleanArchitectureCQRs.Infrastructure", "CleanArchitectureCQRs.Infrastructure\CleanArchitectureCQRs.Infrastructure.csproj", "{456BF464-4576-4E16-AEB9-7EC1E7DDF878}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CleanArchitectureCQRs.API", "CleanArchitectureCQRs.API\CleanArchitectureCQRs.API.csproj", "{0A7FD8DE-4580-4F75-8B1D-64892CBA23AB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CleanArchitectureCQRs.API", "CleanArchitectureCQRs.API\CleanArchitectureCQRs.API.csproj", "{0A7FD8DE-4580-4F75-8B1D-64892CBA23AB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CleanArchitectureCQRS.Testing", "CleanArchitectureCQRS.Testing\CleanArchitectureCQRS.Testing.csproj", "{775BAC59-95E8-402D-8461-0C43FAFF07FC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExternalServices", "ExternalServices\ExternalServices.csproj", "{2D07C7C3-3BC3-48AD-BAA3-870A6C502788}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +37,14 @@ Global
 		{0A7FD8DE-4580-4F75-8B1D-64892CBA23AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0A7FD8DE-4580-4F75-8B1D-64892CBA23AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0A7FD8DE-4580-4F75-8B1D-64892CBA23AB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{775BAC59-95E8-402D-8461-0C43FAFF07FC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{775BAC59-95E8-402D-8461-0C43FAFF07FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{775BAC59-95E8-402D-8461-0C43FAFF07FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{775BAC59-95E8-402D-8461-0C43FAFF07FC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2D07C7C3-3BC3-48AD-BAA3-870A6C502788}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2D07C7C3-3BC3-48AD-BAA3-870A6C502788}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2D07C7C3-3BC3-48AD-BAA3-870A6C502788}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2D07C7C3-3BC3-48AD-BAA3-870A6C502788}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

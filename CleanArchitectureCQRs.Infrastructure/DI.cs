@@ -1,17 +1,13 @@
-﻿using Azure.Core;
-using CleanArchitectureCQRs.Application.Interfaces;
+﻿using CleanArchitectureCQRs.Application.Interfaces;
 using CleanArchitectureCQRs.Application.Interfaces.Repositories;
 using CleanArchitectureCQRs.Infrastructure.Context;
 using CleanArchitectureCQRs.Infrastructure.Identity;
 using CleanArchitectureCQRs.Infrastructure.Repositories;
-using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using static System.Net.Mime.MediaTypeNames;
-using System;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
@@ -48,10 +44,9 @@ public static class DI
                 ValidIssuer = config["Jwt:Issuer"],
                 ValidAudience = config["Jwt:Audience"],
                 IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config["Jwt:Key"])),
-
             };
         });
-      
+
         services.AddHttpContextAccessor();
 
         //Add Services Allow DI
