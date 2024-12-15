@@ -1,7 +1,6 @@
 ﻿using CleanArchitectureCQRs.Domain.Entites;
 using CleanArchitectureCQRs.Infrastructure.Context;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
-using Microsoft.EntityFrameworkCore;
+using System.Data;
 
 namespace ExternalServices.Sorting;
 
@@ -13,21 +12,30 @@ public class Sorter
     {
         _dbContext = dbContext;
     }
-    public string sorting(string sortBy)
+    public async Task<IQueryable<Product>> sorting(string sortBy)
     {
-        IQueryable<Product> query = null;
-
-
-        switch (sortBy)
+        try
         {
-            case "Name":
-                query = _dbContext.Products.OrderBy(x => x.Name);
-                break;
-            case "Price":
-                query = _dbContext.Products.OrderBy(x => x.Price);
-                break;
+            var sorting = new Dictionary<string, Func<IQueryable<Product>, IOrderedQueryable<Product>>>
+            {
+                {"Name" , p => p.OrderByDescending(p => p.Name) },
+                { "Price", products => products.OrderByDescending(p => p.Price) }
+            };
+
+            if (!sorting.TryGetValue(sortBy,out var sortExpression))
+            {
+                throw new ArgumentException($"Unsupported sort key: {sortBy}", nameof(sortBy));
+            }
+
+            IQueryable<Product> query = sortExpression(_dbContext.Products);
+            return await Task.FromResult(query);
         }
-        return string.Empty;
+        catch (Exception ex)
+        {
+            Console.Error.WriteLine($"Error sorting products: {ex}");
+            return Enumerable.Empty<Product>().AsQueryable();
+        }
+
     }
 
 

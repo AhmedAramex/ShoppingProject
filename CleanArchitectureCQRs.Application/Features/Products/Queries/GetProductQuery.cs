@@ -13,7 +13,7 @@ public class GetProductRequest : IRequest<List<ProductDto>>
     public int Price { get; set; }
 
 }
-public class GetProductHandler : IRequestHandler<GetProductRequest, List<ProductDto>>
+public class GetProductHandler : IRequestHandler<GetProductRequest, IReadOnlyList<ProductDto>>
 {
     private readonly IGenericRepository<Product> _genericRepo;
     private readonly IMapper _mapper;
@@ -24,7 +24,7 @@ public class GetProductHandler : IRequestHandler<GetProductRequest, List<Product
         _mapper = mapper;
     }
 
-    public async Task<List<ProductDto>> Handle(GetProductRequest request, CancellationToken cancellationToken)
+    public async Task<IReadOnlyList<ProductDto>> Handle(GetProductRequest request, CancellationToken cancellationToken)
     {
         var product = await _genericRepo.GetAllAsync();
         List<ProductDto> ProductList = new List<ProductDto>();
