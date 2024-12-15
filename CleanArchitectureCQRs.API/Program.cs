@@ -1,5 +1,5 @@
 using CleanArchitectureCQRs.Application;
-using CleanArchitectureCQRs.Infrastructure;
+using ExternalServices;
 
 var builder = WebApplication.CreateBuilder(args);
 

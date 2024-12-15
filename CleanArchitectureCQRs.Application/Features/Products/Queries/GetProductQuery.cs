@@ -34,7 +34,6 @@ public class GetProductHandler : IRequestHandler<GetProductRequest, List<Product
             ProductList.Add(productmap);
         }
         return ProductList;
-
     }
 }
 

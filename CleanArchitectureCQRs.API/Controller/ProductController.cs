@@ -26,8 +26,6 @@ public class ProductController : BaseController
         return Ok(result);
     }
 
-
-    [Authorize]
     [HttpGet("Product/{ProductId}")]
     public async Task<IActionResult> GetProductByIdAsync(Guid ProductId)
     {
@@ -43,6 +41,7 @@ public class ProductController : BaseController
         }
     }
 
+    [Authorize]
     [HttpGet("Products")]
     public async Task<IActionResult> GetAllProductsAsync()
     {
@@ -55,7 +54,6 @@ public class ProductController : BaseController
         {
             return BadRequest(ex.Message);
         }
-       
     }
 
     [HttpGet("by-category/{categoryId}")]

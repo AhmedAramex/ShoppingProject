@@ -25,6 +25,7 @@
   <ItemGroup>
     <ProjectReference Include="..\CleanArchitectureCQRs.Application\CleanArchitectureCQRs.Application.csproj" />
     <ProjectReference Include="..\CleanArchitectureCQRs.Infrastructure\CleanArchitectureCQRs.Infrastructure.csproj" />
+    <ProjectReference Include="..\ExternalServices\ExternalServices.csproj" />
   </ItemGroup>
 
 </Project>
