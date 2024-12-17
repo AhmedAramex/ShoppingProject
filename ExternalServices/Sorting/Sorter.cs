@@ -22,7 +22,7 @@ public class Sorter
                 { "Price", products => products.OrderByDescending(p => p.Price) }
             };
 
-            if (!sorting.TryGetValue(sortBy,out var sortExpression))
+            if (!sorting.TryGetValue(sortBy, out var sortExpression))
             {
                 throw new ArgumentException($"Unsupported sort key: {sortBy}", nameof(sortBy));
             }
@@ -35,8 +35,6 @@ public class Sorter
             Console.Error.WriteLine($"Error sorting products: {ex}");
             return Enumerable.Empty<Product>().AsQueryable();
         }
-
     }
-
 
 }

@@ -23,4 +23,8 @@
     <ProjectReference Include="..\CleanArchitectureCQRs.Infrastructure\CleanArchitectureCQRs.Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Filteration\" />
+  </ItemGroup>
+
 </Project>

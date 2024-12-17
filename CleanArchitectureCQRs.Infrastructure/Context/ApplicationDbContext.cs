@@ -39,7 +39,7 @@ public class ApplicationDbContext : DbContext
         });
 
         /* SEED DATA */
-
+        #region SeedingData
         // Seed categories
         var categories = new List<Category>
         {
@@ -111,7 +111,7 @@ public class ApplicationDbContext : DbContext
         };
 
         modelBuilder.Entity<Product>().HasData(products);
-
+        #endregion
     }
 
 }
