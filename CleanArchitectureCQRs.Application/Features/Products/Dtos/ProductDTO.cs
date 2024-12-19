@@ -8,4 +8,5 @@ public class ProductDto
     public int Price { get; set; }
     public string? Image { get; set; }
     public Guid? CategoryId { get; set; }
+    public string? SortBy { get; set; }
 }

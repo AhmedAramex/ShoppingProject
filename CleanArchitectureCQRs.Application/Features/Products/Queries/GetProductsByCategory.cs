@@ -5,9 +5,9 @@ using MediatR;
 
 namespace CleanArchitectureCQRs.Application.Features.Products.Queries;
 
-public record GetProductsByCategory(Guid categoryId) : IRequest<IReadOnlyList<ProductDto>>;
+public record GetProductsByCategory(Guid categoryId) : IRequest<List<ProductDto>>;
 
-public class GetProductsByCategoryHandler : IRequestHandler<GetProductsByCategory, IReadOnlyList<ProductDto>>
+public class GetProductsByCategoryHandler : IRequestHandler<GetProductsByCategory, List<ProductDto>>
 {
     private readonly IGenericRepository<Product> _repository;
     private readonly IMapper _mapper;
@@ -18,7 +18,7 @@ public class GetProductsByCategoryHandler : IRequestHandler<GetProductsByCategor
         _mapper = mapper;
     }
 
-    public async Task<IReadOnlyList<ProductDto>> Handle(GetProductsByCategory request, CancellationToken cancellationToken)
+    public async Task<List<ProductDto>> Handle(GetProductsByCategory request, CancellationToken cancellationToken)
     {
         var productsByCategory = await _repository.WhereAsync(p => p.CategoryId == request.categoryId);
 

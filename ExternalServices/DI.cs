@@ -15,6 +15,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
+using ExternalServices.Sorting;
 
 namespace ExternalServices
 {
@@ -57,6 +58,7 @@ namespace ExternalServices
 
             //Add Services Allow DI
             services.AddScoped<IAuthService, AuthService>();
+            services.AddScoped<Isorting, Sorter>();
 
             return services;
         }

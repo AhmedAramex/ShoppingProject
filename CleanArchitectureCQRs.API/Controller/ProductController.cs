@@ -43,11 +43,11 @@ public class ProductController : BaseController
 
     [Authorize]
     [HttpGet("Products")]
-    public async Task<IActionResult> GetAllProductsAsync()
+    public async Task<IActionResult> GetAllProductsAsync(string SortBy)
     {
         try 
         {
-            var result = await _mediator.Send(new GetProductRequest());
+            var result = await _mediator.Send(new GetProductRequest(SortBy));
             return Ok(result);
         }
         catch(Exception ex)

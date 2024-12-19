@@ -18,7 +18,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Features\Dtos\" />
     <Folder Include="Interfaces\Identity\" />
   </ItemGroup>
 
