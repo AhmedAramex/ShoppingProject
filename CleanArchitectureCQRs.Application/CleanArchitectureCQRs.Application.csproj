@@ -17,8 +17,4 @@
     <ProjectReference Include="..\CleanArchitectureCQRs.Domain\CleanArchitectureCQRs.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Interfaces\Identity\" />
-  </ItemGroup>
-
 </Project>

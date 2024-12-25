@@ -1,38 +1,35 @@
 ﻿using AutoMapper;
-using CleanArchitectureCQRs.Application.Interfaces;
 using CleanArchitectureCQRs.Application.Interfaces.Repositories;
+using CleanArchitectureCQRs.Application.Specification;
 using CleanArchitectureCQRs.Domain.Entites;
 using MediatR;
-using Microsoft.IdentityModel.Tokens;
-using System.Globalization;
 
 namespace CleanArchitectureCQRs.Application.Features.ProductsHandler.Queries;
 
-public record GetProductRequest(string SortBy) : IRequest<IQueryable<Product>>;
+public record GetProductRequest(string SortBy) : IRequest<List<Product>>;
 
-public class GetProductHandler : IRequestHandler<GetProductRequest, IQueryable<Product>>
+public class GetProductHandler : IRequestHandler<GetProductRequest, List<Product>>
 {
     private readonly IGenericRepository<Product> _genericRepo;
     private readonly IMapper _mapper;
-    private readonly Isorting _sorting;
 
-    public GetProductHandler(IGenericRepository<Product> genericRepo, IMapper mapper, Isorting sorting)
+    public GetProductHandler(IGenericRepository<Product> genericRepo, IMapper mapper)
     {
         _genericRepo = genericRepo;
         _mapper = mapper;
-        _sorting = sorting;
     }
 
-    public async Task<IQueryable<Product>> Handle(GetProductRequest request, CancellationToken cancellationToken)
+    public async Task<List<Product>> Handle(GetProductRequest request, CancellationToken cancellationToken)
     {
 
         //var product = await _genericRepo.GetAllAsync();
         //List<ProductDto> ProductList = new List<ProductDto>();
-
-        if (!request.SortBy.IsNullOrEmpty())
-            return await _sorting.sorting(request.SortBy);
-        else
-            return null;
+        var spec = new BaseSpecification<Product>()
+        {
+            Criteria = x => x.Name == request.SortBy
+        };
+        var filteration = await _genericRepo.GetAllAsyncBySpec(spec);
+        return filteration;
 
         //foreach (var item in product)
         //{
@@ -42,7 +39,6 @@ public class GetProductHandler : IRequestHandler<GetProductRequest, IQueryable<P
 
         //return x;
     }
-
 }
 
 

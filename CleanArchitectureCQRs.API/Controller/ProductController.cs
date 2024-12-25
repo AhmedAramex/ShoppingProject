@@ -2,6 +2,8 @@
 using CleanArchitectureCQRs.Application.Features.Products.Commands;
 using CleanArchitectureCQRs.Application.Features.Products.Queries;
 using CleanArchitectureCQRs.Application.Features.ProductsHandler.Queries;
+using CleanArchitectureCQRs.Application.Interfaces;
+using CleanArchitectureCQRs.Domain.Entites;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
@@ -18,7 +20,8 @@ public class ProductController : BaseController
         _mediator = mediator;
     }
 
-    [HttpPost]
+    [Authorize]
+    [HttpPost("AddProduct")]
     public async Task<IActionResult> AddProductAsync(CreateProductCommand productDto)
     {
         var result = await _mediator.Send(productDto);
@@ -42,15 +45,15 @@ public class ProductController : BaseController
     }
 
     [Authorize]
-    [HttpGet("Products")]
+    [HttpGet("")]
     public async Task<IActionResult> GetAllProductsAsync(string SortBy)
     {
-        try 
+        try
         {
             var result = await _mediator.Send(new GetProductRequest(SortBy));
             return Ok(result);
         }
-        catch(Exception ex)
+        catch (Exception ex)
         {
             return BadRequest(ex.Message);
         }
@@ -78,10 +81,11 @@ public class ProductController : BaseController
             var result = await _mediator.Send(new GetCategories());
 
             return Ok(result);
-        }catch (Exception ex)
+        }
+        catch (Exception ex)
         {
             return BadRequest(ex.Message);
         }
-        
+
     }
 }

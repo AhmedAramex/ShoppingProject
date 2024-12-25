@@ -1,4 +1,6 @@
-﻿namespace CleanArchitectureCQRs.Application.Features.Products.Dtos;
+﻿using CleanArchitectureCQRs.Application.Interfaces;
+
+namespace CleanArchitectureCQRs.Application.Features.Products.Dtos;
 
 public class ProductDto
 {

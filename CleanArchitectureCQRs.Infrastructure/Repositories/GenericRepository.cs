@@ -1,4 +1,6 @@
-﻿using CleanArchitectureCQRs.Application.Interfaces.Repositories;
+﻿using CleanArchitectureCQRs.Application.Interfaces;
+using CleanArchitectureCQRs.Application.Interfaces.Repositories;
+using CleanArchitectureCQRs.Application.Specification;
 using CleanArchitectureCQRs.Domain.Abstractions;
 using CleanArchitectureCQRs.Infrastructure.Context;
 using Microsoft.EntityFrameworkCore;
@@ -25,6 +27,12 @@ public class GenericRepository<T> : IGenericRepository<T> where T : BaseEntity, 
     {
         return await _dbContext.Set<T>().ToListAsync();
     }
+
+    public async Task<List<T>> GetAllAsyncBySpec(ISpecification<T> specification)
+    {
+        return await SpecificationEvaluator<T>.GetQueryAsync(_dbContext.Set<T>(), specification).ToListAsync();
+    }
+
 
     public async Task<T?> GetByIdAsync(Guid id)
     {

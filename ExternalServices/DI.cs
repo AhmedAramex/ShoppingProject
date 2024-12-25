@@ -1,21 +1,18 @@
-﻿using CleanArchitectureCQRs.Application.Interfaces.Repositories;
-using CleanArchitectureCQRs.Application.Interfaces;
+﻿using CleanArchitectureCQRs.Application.Interfaces;
+using CleanArchitectureCQRs.Application.Interfaces.Repositories;
+using CleanArchitectureCQRs.Application.Specification;
 using CleanArchitectureCQRs.Infrastructure.Context;
 using CleanArchitectureCQRs.Infrastructure.Identity;
 using CleanArchitectureCQRs.Infrastructure.Repositories;
 using ExternalServices.AuthenticationService;
+using ExternalServices.Sorting;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
-using ExternalServices.Sorting;
+using System.Text;
 
 namespace ExternalServices
 {
@@ -58,7 +55,9 @@ namespace ExternalServices
 
             //Add Services Allow DI
             services.AddScoped<IAuthService, AuthService>();
-            services.AddScoped<Isorting, Sorter>();
+            services.AddScoped(typeof(Isorting<>), typeof(Sorter<>));
+            services.AddScoped(typeof(ISpecification<>), typeof(BaseSpecification<>));
+
 
             return services;
         }
