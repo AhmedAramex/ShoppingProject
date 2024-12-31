@@ -2,10 +2,7 @@
 using CleanArchitectureCQRs.Application.Features.Products.Commands;
 using CleanArchitectureCQRs.Application.Features.Products.Queries;
 using CleanArchitectureCQRs.Application.Features.ProductsHandler.Queries;
-using CleanArchitectureCQRs.Application.Interfaces;
-using CleanArchitectureCQRs.Domain.Entites;
 using MediatR;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -46,11 +43,11 @@ public class ProductController : BaseController
 
     [Authorize]
     [HttpGet("")]
-    public async Task<IActionResult> GetAllProductsAsync(string SortBy)
+    public async Task<IActionResult> GetAllProductsAsync(string filterBy)
     {
         try
         {
-            var result = await _mediator.Send(new GetProductRequest(SortBy));
+            var result = await _mediator.Send(new GetProductRequest(filterBy));
             return Ok(result);
         }
         catch (Exception ex)

@@ -15,17 +15,14 @@ public class ApplicationDbContext : DbContext
         //product
         modelBuilder.Entity<Product>(entity =>
         {
-            entity.HasOne(p => p.Category)
-            .WithMany(c => c.Products);
+            entity.HasOne(p => p.Category);
 
             entity.HasMany(p => p.Wishlists)
             .WithOne(w => w.Product);
         });
 
         //category 
-        modelBuilder.Entity<Category>()
-            .HasMany(c => c.Products)
-            .WithOne(c => c.Category);
+        modelBuilder.Entity<Category>();
 
         //WishList
         modelBuilder.Entity<Wishlist>(entity =>

@@ -5,7 +5,6 @@ using CleanArchitectureCQRs.Infrastructure.Context;
 using CleanArchitectureCQRs.Infrastructure.Identity;
 using CleanArchitectureCQRs.Infrastructure.Repositories;
 using ExternalServices.AuthenticationService;
-using ExternalServices.Sorting;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -55,7 +54,6 @@ namespace ExternalServices
 
             //Add Services Allow DI
             services.AddScoped<IAuthService, AuthService>();
-            services.AddScoped(typeof(Isorting<>), typeof(Sorter<>));
             services.AddScoped(typeof(ISpecification<>), typeof(BaseSpecification<>));
 
 

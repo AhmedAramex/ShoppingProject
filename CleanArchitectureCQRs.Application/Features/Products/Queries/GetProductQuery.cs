@@ -1,12 +1,14 @@
 ﻿using AutoMapper;
+using CleanArchitectureCQRs.Application.Enum;
 using CleanArchitectureCQRs.Application.Interfaces.Repositories;
 using CleanArchitectureCQRs.Application.Specification;
 using CleanArchitectureCQRs.Domain.Entites;
 using MediatR;
+using System.Linq.Expressions;
 
 namespace CleanArchitectureCQRs.Application.Features.ProductsHandler.Queries;
 
-public record GetProductRequest(string SortBy) : IRequest<List<Product>>;
+public record GetProductRequest(string Filterby) : IRequest<List<Product>>;
 
 public class GetProductHandler : IRequestHandler<GetProductRequest, List<Product>>
 {
@@ -21,23 +23,23 @@ public class GetProductHandler : IRequestHandler<GetProductRequest, List<Product
 
     public async Task<List<Product>> Handle(GetProductRequest request, CancellationToken cancellationToken)
     {
-
-        //var product = await _genericRepo.GetAllAsync();
-        //List<ProductDto> ProductList = new List<ProductDto>();
-        var spec = new BaseSpecification<Product>()
+        try
         {
-            Criteria = x => x.Name == request.SortBy
-        };
-        var filteration = await _genericRepo.GetAllAsyncBySpec(spec);
-        return filteration;
 
-        //foreach (var item in product)
-        //{
-        //    var productmap = _mapper.Map<ProductDto>(item);
-        //    ProductList.Add(productmap);
-        //}
+            switch (request.Filterby)
+            {
 
-        //return x;
+            }
+            Expression<Func<Product, bool>> where = x => x.Name == request.Filterby;
+            var spec = new ProductWithBrand(where);
+            var filteration = await _genericRepo.GetAllAsyncBySpec(spec);
+            return filteration;
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.Message);
+            return null;
+        }
     }
 }
 
