@@ -32,8 +32,7 @@ public class GenericRepository<T> : IGenericRepository<T> where T : BaseEntity, 
     {
         try
         {
-            var x = await SpecificationEvaluator<T>.GetQueryAsync(_dbContext.Set<T>(), specification).ToListAsync();
-            return x;
+            return await SpecificationEvaluator<T>.GetQueryAsync(_dbContext.Set<T>(), specification).ToListAsync();
         }
         catch (Exception ex)
         {
