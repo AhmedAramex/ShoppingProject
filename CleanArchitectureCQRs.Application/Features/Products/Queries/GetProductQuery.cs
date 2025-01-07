@@ -26,8 +26,9 @@ public class GetProductHandler : IRequestHandler<GetProductRequest, List<Product
         try
         {
 
-            switch (request.Filterby)
+            switch (Enums.filter)
             {
+                case 1:
 
             }
             Expression<Func<Product, bool>> where = x => x.Name == request.Filterby;

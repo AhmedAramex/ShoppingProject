@@ -2,9 +2,9 @@
 
 public class Enums
 {
-    enum filter
+    public enum filter
     {
         NAME,
-        CATEGORYNAME,
+        CATEGORYNAME
     }
 }
