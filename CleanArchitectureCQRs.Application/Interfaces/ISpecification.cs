@@ -9,8 +9,8 @@ public interface ISpecification<T> where T : BaseEntity
 
     public List<Expression<Func<T, object>>> Includes { get; set; }
 
-    public Expression<Func<T, IOrderedQueryable>> OrderbyAsc { get; set; }
-    public Expression<Func<T, IOrderedQueryable>> OrderbyDesc { get; set; }
+    public Expression<Func<T, object>> OrderbyAsc { get; set; }
+    public Expression<Func<T, object>> OrderbyDesc { get; set; }
 
 
 }
