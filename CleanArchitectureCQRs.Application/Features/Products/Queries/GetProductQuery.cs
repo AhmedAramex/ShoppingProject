@@ -6,7 +6,7 @@ using System.Linq.Expressions;
 
 namespace CleanArchitectureCQRs.Application.Features.ProductsHandler.Queries;
 
-public record GetProductRequest(string FilterBy, string FilerFor, string OrderBy) : IRequest<List<Product>>;
+public record GetProductRequest(string FilterBy, string FilerFor, bool OrderByAsc, bool OrderByDesc) : IRequest<List<Product>>;
 
 public class GetProductHandler : IRequestHandler<GetProductRequest, List<Product>>
 {
@@ -35,11 +35,17 @@ public class GetProductHandler : IRequestHandler<GetProductRequest, List<Product
                     spec = new ProductWithBrand(where);
                 }
             }
-            if (!string.IsNullOrEmpty(request.OrderBy))
+            if (request.OrderByAsc)
             {
-                case 1:
-
+                spec = new ProductWithBrand();
+                spec.AddOrderbyASC(x => x.Price);
             }
+            if (request.OrderByDesc)
+            {
+                spec = new ProductWithBrand();
+                spec.AddOrderbyASC(x => x.Price);
+            }
+
             var filteration = await _genericRepo.GetAllAsyncBySpec(spec);
             return filteration;
         }
