@@ -14,16 +14,21 @@ public class BaseSpecification<T> : ISpecification<T> where T : BaseEntity
     public BaseSpecification(Expression<Func<T, bool>> WhereExpresssion)
     {
         Criteria = WhereExpresssion;
+
     }
+
     public BaseSpecification()
     {
     }
-    public void AddOrderbyASC(Expression<Func<T, object>> _OrderbyASC)
+
+    public void OrderbyASC(Expression<Func<T, object>> _OrderbyASC)
     {
         _OrderbyASC = OrderbyAsc;
     }
-    public void AddOrderbyDESC(Expression<Func<T, object>> _OrderbyDesc)
+
+    public void OrderbyDESC(Expression<Func<T, object>> _OrderbyDesc)
     {
         _OrderbyDesc = OrderbyDesc;
     }
+
 }
